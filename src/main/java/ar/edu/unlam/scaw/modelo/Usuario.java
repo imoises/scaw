@@ -2,7 +2,7 @@ package ar.edu.unlam.scaw.modelo;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -22,6 +22,12 @@ public class Usuario {
 	private String password;
 	private String rol;
 	private String estado;
+
+	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
+	private List<Actividad> actividad = new ArrayList<Actividad>();
+	
+	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
+	private List<Texto> texto = new ArrayList<Texto>();
 	
 //	@OneToMany(mappedBy="usuario")
 //	private List<PreguntaRecuperacion> preguntas = new ArrayList();
@@ -73,11 +79,9 @@ public class Usuario {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
 	public String getRol() {
 		return rol;
 	}
-
 	public void setRol(String rol) {
 		this.rol = rol;
 	}
@@ -85,18 +89,23 @@ public class Usuario {
 	public String getEstado() {
 		return estado;
 	}
-
 	public void setEstado(String estado) {
 		this.estado = estado;
 	}
+	
+	public List<Actividad> getActividad() {
+		return actividad;
+	}
+	
+	public void setActividad(List<Actividad> actividad) {
+		this.actividad = actividad;
+	}	
 
-//	public List<PreguntaRecuperacion> getPreguntas() {
-//		return preguntas;
-//	}
-//
-//	public void setPreguntas(List<PreguntaRecuperacion> preguntas) {
-//		this.preguntas = preguntas;
-//	}
+	public List<Texto> getTexto() {
+		return texto;
+	}
 	
-	
+	public void setTexto(List<Texto> texto) {
+		this.texto = texto;
+	}	
 }
