@@ -32,12 +32,12 @@ public class ControladorRegistrarse {
 		ModelMap modelo = new ModelMap();
 		Usuario usuario = new Usuario();
 		modelo.put("usuario", usuario);
-		
+
 		if(servicioUsuario.agregarUsuario(agregarusuario)) {
-			return new ModelAndView("regis");
+			return new ModelAndView("redirect:/login");
 		}
 		
-		return new ModelAndView("/login", modelo);
+		return new ModelAndView("/registrarse", modelo);
 	}
 	
 }

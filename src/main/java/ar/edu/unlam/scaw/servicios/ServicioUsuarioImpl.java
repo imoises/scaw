@@ -22,7 +22,8 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
 		List<Usuario> miUsuario = servicioUsuarioDao.buscarUsuarioPorEmail(usuario);
 		if(miUsuario.size() == 0) {
 			Usuario userpro = usuario;
-			userpro.setEstado("usuario");
+			userpro.setRol("usuario");
+			userpro.setEstado("deshabilitado");
 			servicioUsuarioDao.insertUsuario(userpro);
 			return true;
 		}else {
