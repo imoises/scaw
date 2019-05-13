@@ -1,14 +1,14 @@
 package ar.edu.unlam.scaw.modelo;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-@Entity
+//@Entity
 public class Actividad {
 	
 	@Id
@@ -17,9 +17,8 @@ public class Actividad {
 	private String descripcion;
 	private String fecha;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_usuario", referencedColumnName="id")
-	private Usuario usuario;
+	@ManyToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Usuario usuario;
 	
 	public Long getId() {
 		return id;

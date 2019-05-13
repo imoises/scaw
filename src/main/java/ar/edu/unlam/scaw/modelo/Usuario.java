@@ -23,11 +23,11 @@ public class Usuario {
 	private String rol;
 	private String estado;
 
-	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
-	private List<Actividad> actividad = new ArrayList<Actividad>();
-	
-	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
-	private List<Texto> texto = new ArrayList<Texto>();
+//	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
+//	private List<Actividad> actividad = new ArrayList<Actividad>();
+//	
+//	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
+//	private List<Texto> texto = new ArrayList<Texto>();
 	
 //	@OneToMany(mappedBy="usuario")
 //	private List<PreguntaRecuperacion> preguntas = new ArrayList();
@@ -93,19 +93,19 @@ public class Usuario {
 		this.estado = estado;
 	}
 	
-	public List<Actividad> getActividad() {
-		return actividad;
-	}
-	
-	public void setActividad(List<Actividad> actividad) {
-		this.actividad = actividad;
-	}	
-
-	public List<Texto> getTexto() {
-		return texto;
-	}
-	
-	public void setTexto(List<Texto> texto) {
-		this.texto = texto;
-	}	
+//	public List<Actividad> getActividad() {
+//		return actividad;
+//	}
+//	
+//	public void setActividad(List<Actividad> actividad) {
+//		this.actividad = actividad;
+//	}	
+//
+//	public List<Texto> getTexto() {
+//		return texto;
+//	}
+//	
+//	public void setTexto(List<Texto> texto) {
+//		this.texto = texto;
+//	}	
 }

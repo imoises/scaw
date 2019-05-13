@@ -1,5 +1,6 @@
 package ar.edu.unlam.scaw.modelo;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -8,7 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-@Entity
+//@Entity
 public class Texto {
 
 	@Id
@@ -17,9 +18,9 @@ public class Texto {
 
 	private String descripcion;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_usuario", referencedColumnName="id")
-	private Usuario usuario;
+	@ManyToOne
+	@JoinColumn(name="ID_USUARIO")
+    private Usuario usuario;
 
 	public Long getId() {
 		return id;
