@@ -43,7 +43,7 @@ public class UsuarioDaoImpl implements UsuarioDao {
 		// de busqueda de Usuario para traer los que tengan rol user
 		final Session session = sessionFactory.getCurrentSession();
 		List<Usuario> usuarios = (List<Usuario>) session.createCriteria(Usuario.class)
-				.add(Restrictions.eq("rol", "user"))
+				.add(Restrictions.eq("rol", "usuario"))
 				.list();
 		return usuarios;
 	}

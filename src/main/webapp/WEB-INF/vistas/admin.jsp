@@ -9,37 +9,7 @@
 	    <link href="css/bootstrap-theme.min.css" rel="stylesheet">
 	</head>
 	<body>
-		<div class = "container">
-					
-			<table class="table container">
-				<thead>
-					<tr>
-				    	<th scope="col">id</th>
-				     	<th scope="col">email</th>
-				      	<th scope="col">rol</th>
-				     	<th scope="col">estado</th>
-				    </tr>
-				</thead>
-				<tbody>
-				<c:forEach items="${usuarios}" var="item">
-			    	<tr>
-				     <td>${item.id}</td>
-				     <td>${item.email}</td>
-				     <td>${item.rol}</td>
-				     <td>${item.estado}</td>
-				     <td><a class="btn" href="habilitar-usuario">Habilitar</a></td>
-				     
-				    </tr>
-				</c:forEach> 		  
-				
-				</tbody>
-			</table>
-			<%--Bloque que es visible si el elemento error no está vacío	--%>
-			<c:if test="${not empty error}">
-		        <h4><span>${error}</span></h4>
-		        <br>
-	        </c:if>	
-		</div>
+		
 		
 		<!-- Placed at the end of the document so the pages load faster -->
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js" ></script>

@@ -50,7 +50,7 @@ public class ControladorLogin {
 			request.getSession().setAttribute("ROL", usuarioBuscado.getRol());
 			
 			if (usuarioBuscado.getRol().equals("admin")) {
-				return new ModelAndView("redirect:/homeAdmin");
+				return new ModelAndView("redirect:/administrar");
 			}
 			return new ModelAndView("redirect:/homeUsuario");
 		} else {
@@ -58,12 +58,6 @@ public class ControladorLogin {
 			model.put("error", "Usuario o clave incorrecta");
 		}
 		return new ModelAndView("login", model);
-	}
-
-	// Escucha la URL /home por GET, y redirige a una vista.
-	@RequestMapping(path = "/homeAdmin", method = RequestMethod.GET)
-	public ModelAndView irAHome() {
-		return new ModelAndView("homeAdmin");
 	}
 
 	// Escucha la url /, y redirige a la URL /login, es lo mismo que si se invoca la url /login directamente.
