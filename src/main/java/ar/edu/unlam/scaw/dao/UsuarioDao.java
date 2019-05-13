@@ -12,4 +12,6 @@ public interface UsuarioDao {
 	List<Usuario> consultarUsuarios();
 	
 	void habilitarUsuario (Usuario usuario);
+	
+	public Usuario buscarUsuarioXId(int id);
 }

@@ -49,11 +49,12 @@ public class ControladorLogin {
 		Usuario usuarioBuscado = servicioLogin.consultarUsuario(usuario);
 		if (usuarioBuscado != null) {
 			request.getSession().setAttribute("ROL", usuarioBuscado.getRol());
+			request.getSession().setAttribute("idUsuario", usuarioBuscado.getId());
 			
 			if (usuarioBuscado.getRol().equals("admin")) {
 				return new ModelAndView("redirect:/administrar");
 			}else{
-				return new ModelAndView("homeUsuario");
+				return new ModelAndView("redirect:/guardarComentario");
 			}
 			
 		} else {

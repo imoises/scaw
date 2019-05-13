@@ -14,7 +14,7 @@ import javax.inject.Inject;
 // implelemtacion del DAO de usuarios, la anotacion @Repository indica a Spring que esta clase es un componente que debe
 // ser manejado por el framework, debe indicarse en applicationContext que busque en el paquete ar.edu.unlam.tallerweb1.dao
 // para encontrar esta clase.
-@Repository("usuarioDao")
+@Repository("UsuarioDao")
 public class UsuarioDaoImpl implements UsuarioDao {
 
 	// Como todo dao maneja acciones de persistencia, normalmente estará inyectado el session factory de hibernate
@@ -60,6 +60,12 @@ public class UsuarioDaoImpl implements UsuarioDao {
 		        .setString( "idUsuario", String.valueOf(usuario.getId()))
 		        .executeUpdate();
 		session.close();
+	}
+
+	@Override
+	public Usuario buscarUsuarioXId(int id) {
+		Session session = sessionFactory.getCurrentSession();
+		return session.get(Usuario.class, id);
 	}
 
 	

@@ -1,6 +1,5 @@
 package ar.edu.unlam.scaw.modelo;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -8,24 +7,25 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
-//@Entity
+//Entity
 public class Texto {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private int id;
 
 	private String descripcion;
 	
-	@ManyToOne
-	@JoinColumn(name="ID_USUARIO")
-    private Usuario usuario;
+//	@ManyToOne(fetch=FetchType.EAGER)	
+//	@JoinColumn(name="ID_USUARIO")
+//    private Usuario usuario;
 
-	public Long getId() {
+	public int getId() {
 		return id;
 	}
-	public void setId(Long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 	public String getDescripcion() {
@@ -34,11 +34,11 @@ public class Texto {
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
-	public void setUsuario(Usuario usuario){
-		this.usuario = usuario;
-	}
-	public Usuario getUsuario(){
-		return usuario;
-	}
+//	public void setUsuario(Usuario usuario){
+//		this.usuario = usuario;
+//	}
+//	public Usuario getUsuario(){
+//		return usuario;
+//	}
 	
 }

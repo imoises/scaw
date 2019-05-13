@@ -26,9 +26,9 @@ public class Usuario {
 //	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
 //	private List<Actividad> actividad = new ArrayList<Actividad>();
 //	
-//	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
+//	@OneToMany(mappedBy = "usuario")
 //	private List<Texto> texto = new ArrayList<Texto>();
-	
+//	
 //	@OneToMany(mappedBy="usuario")
 //	private List<PreguntaRecuperacion> preguntas = new ArrayList();
 

@@ -13,10 +13,12 @@
             <div class="tab-pane fade show active" id="tabone" role="tabpanel">
               <h1 class="display-3 mb-4">Usuario</h1>
               <p class="">Ingrese un texto no mayor a 300 caracteres.</p>
-              <form class="">
-                <div class="form-group"> <input type="textarea" class="form-control" style=""> </div>
+              <form:form action="guardar-text" method="POST" modelAttribute="textoModel">
+                <div class="form-group"> <!-- input type="textarea" class="form-control" style=""-->
+               		<form:textarea path="descripcion" rows="5" cols="30" />
+                </div>
                 <button type="submit" class="btn btn-lg btn-primary mx-1" contenteditable="true">Guardar</button>
-              </form>
+              </form:form>
             </div>
             <div class="tab-pane fade" id="tabtwo" role="tabpanel">
               <p class="">Las actividades realidas por el usuario fueron:&nbsp;</p>
@@ -25,25 +27,13 @@
                   <thead>
                     <tr>
                       <th scope="col">#</th>
-                      <th scope="col">Descripcion</th>
-                      <th scope="col">Last</th>
+                      <th scope="col">Descripción</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr>
                       <th scope="row">1</th>
                       <td>Mark</td>
-                      <td>Otto</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">2</th>
-                      <td>Jacob</td>
-                      <td>Thornton</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">3</th>
-                      <td>Larry</td>
-                      <td>the Bird</td>
                     </tr>
                   </tbody>
                 </table>

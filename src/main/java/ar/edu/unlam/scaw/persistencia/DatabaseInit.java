@@ -13,6 +13,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import ar.edu.unlam.scaw.modelo.Texto;
 import ar.edu.unlam.scaw.modelo.Usuario;
 public class DatabaseInit {
 
@@ -22,23 +23,18 @@ public class DatabaseInit {
         Connection conn;
 		try {
 			conn = dataSource.getConnection();
-			PreparedStatement ps = conn.prepareStatement("SELECT * FROM USUARIO");
+			PreparedStatement ps = conn.prepareStatement("SELECT * FROM TEXTO");
 	        ResultSet rs = ps.executeQuery();
 	        
 	        List<Usuario> lu = new ArrayList<Usuario>();
 	        while (rs.next()) {
 	        	int id = rs.getInt("id");
-	        	String email = rs.getString("email");
-	        	String password = rs.getString("password");
-	        	String rol = rs.getString("rol");
-	        	Usuario u = new Usuario();
+	        	String desc = rs.getString("descripcion");
+	        	Texto u = new Texto();
 	        	u.setId(id);
-	        	u.setEmail(email);
-	        	u.setPassword(password);
-	        	u.setRol(rol);
+	        	u.setDescripcion(desc);
 	        	System.out.println("lista de usuarios de la db");
-		        System.out.println(u.getRol());
-	        	lu.add(u);
+		        System.out.println(u.getDescripcion());
 			}
 	        
 	        ((ConfigurableApplicationContext) context).close();

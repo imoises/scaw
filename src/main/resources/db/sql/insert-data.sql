@@ -13,5 +13,8 @@ INSERT INTO USUARIO(NICKNAME, NOMBRE, APELLIDO, EMAIL, PASSWORD, ROL, ESTADO  ) 
 -- la pass para user1 es 1234
 INSERT INTO USUARIO(NICKNAME, NOMBRE, APELLIDO, EMAIL, PASSWORD, ROL, ESTADO  ) VALUES  ('user7','Tomas','Gomez','tomas@email.com','1234','admin','habilitado');
 -- la pass para user1 es 1234
-INSERT INTO ACTIVIDAD(DESCRIPCION) VALUES ('Se loguea',CURRENT_DATE,1);
+-- INSERT INTO ACTIVIDAD VALUES ('Se loguea', '2090-07-15');
+
+--INSERT INTO Texto VALUES ('se guarda texto',1);
+
 
