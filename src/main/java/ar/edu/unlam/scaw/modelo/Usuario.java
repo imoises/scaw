@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import org.apache.commons.codec.digest.DigestUtils;
+
 @Entity
 public class Usuario {
 
@@ -77,7 +79,7 @@ public class Usuario {
 	}
 
 	public void setPassword(String password) {
-		this.password = password;
+		this.password = DigestUtils.md5Hex(password);
 	}
 	public String getRol() {
 		return rol;

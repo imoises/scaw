@@ -1,5 +1,5 @@
 
-INSERT INTO USUARIO(NICKNAME, NOMBRE, APELLIDO, EMAIL, PASSWORD, ROL, ESTADO  ) VALUES  ('user1','Reyna','Rondo','reyna@email.com','123','admin','habilitado');
+INSERT INTO USUARIO(NICKNAME, NOMBRE, APELLIDO, EMAIL, PASSWORD, ROL, ESTADO  ) VALUES  ('user1','Reyna','Rondo','reyna@email.com','202cb962ac59075b964b07152d234b70','admin','habilitado');
 -- la pass para user1 es 123 
 INSERT INTO USUARIO(NICKNAME, NOMBRE, APELLIDO, EMAIL, PASSWORD, ROL, ESTADO  ) VALUES  ('user2','Juan','Perez','juan@email.com','1234','usuario','habilitado');
 -- la pass para user1 es 1234
@@ -16,5 +16,4 @@ INSERT INTO USUARIO(NICKNAME, NOMBRE, APELLIDO, EMAIL, PASSWORD, ROL, ESTADO  ) 
 -- INSERT INTO ACTIVIDAD VALUES ('Se loguea', '2090-07-15');
 
 --INSERT INTO Texto VALUES ('se guarda texto',1);
-
 

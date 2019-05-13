@@ -9,7 +9,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- PAGE settings -->
   <link rel="icon" href="https://templates.pingendo.com/assets/Pingendo_favicon.ico">
-  <title>Restaurant Aquamarine - Pingendo template</title>
+  <title>Login TP Seguridad y Calidad Web</title>
   <meta name="description" content="Free Bootstrap 4 Pingendo Aquamarine template for restaurant and food">
   <meta name="keywords" content="Pingendo restaurant food aquamarine free template bootstrap 4">
   <!-- CSS dependencies -->

@@ -34,6 +34,19 @@ public class UsuarioDaoImpl implements UsuarioDao {
 				.add(Restrictions.eq("password", usuario.getPassword()))
 				.uniqueResult();
 	}
+	
+	@Override
+	public void insertUsuario(Usuario usuario) {
+		sessionFactory.getCurrentSession().save(usuario);
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Usuario> buscarUsuarioPorEmail(Usuario usuario) {
+		return (sessionFactory.getCurrentSession().createCriteria(Usuario.class)
+				.add(Restrictions.eq("email", usuario.getEmail()))
+				.list());
+	}
 
 	@Override
 	@SuppressWarnings("unchecked")
