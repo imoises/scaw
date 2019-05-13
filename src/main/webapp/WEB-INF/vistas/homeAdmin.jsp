@@ -1,6 +1,6 @@
 <%@ include file="_header.jsp" %>
 
-<div class="align-items-center d-flex cover section-aquamarine py-5" style="background-image: url(&quot;assets/restaurant/cover_light.jpg&quot;);">
+<div class="align-items-center d-flex cover section-aquamarine py-5" >
     <div class="container">
       <div class="row">
        
@@ -29,8 +29,16 @@
 				     <td>${item.email}</td>
 				     <td>${item.rol}</td>
 				     <td>${item.estado}</td>
-				     <td><a href="habilitar-usuario/${item.id}">Habilitar</a></td>
-				     
+				     <td>
+					     <c:choose>
+						 	<c:when test="${item.estado == 'habilitado'}">
+								<a href="deshabilitar-usuario/${item.id}">Deshabilitar</a>
+							</c:when>
+							<c:otherwise>
+							    <a href="habilitar-usuario/${item.id}">Habilitar</a>
+							</c:otherwise>
+						 </c:choose>
+				     </td>
 				    </tr>
 				</c:forEach> 		  
 				

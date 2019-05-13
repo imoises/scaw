@@ -4,7 +4,7 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-7 align-self-center text-lg-left text-center">
-          <h1 class="mb-0 mt-5 display-4">Iniciar Sessión</h1>
+          <h1 class="mb-0 mt-5 display-4">Iniciar Sesión</h1>
           <p class="mb-5">Login</p>
         </div>
         <div class="col-lg-5 p-3">
