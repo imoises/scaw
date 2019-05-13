@@ -45,14 +45,17 @@ public class ControladorLogin {
 
 		// invoca el metodo consultarUsuario del servicio y hace un redirect a la URL /home, esto es, en lugar de enviar a una vista
 		// hace una llamada a otro action a través de la URL correspondiente a ésta
+
 		Usuario usuarioBuscado = servicioLogin.consultarUsuario(usuario);
 		if (usuarioBuscado != null) {
 			request.getSession().setAttribute("ROL", usuarioBuscado.getRol());
 			
 			if (usuarioBuscado.getRol().equals("admin")) {
 				return new ModelAndView("redirect:/homeAdmin");
+			}else{
+				return new ModelAndView("homeUsuario");
 			}
-			return new ModelAndView("redirect:/homeUsuario");
+			
 		} else {
 			// si el usuario no existe agrega un mensaje de error en el modelo.
 			model.put("error", "Usuario o clave incorrecta");
