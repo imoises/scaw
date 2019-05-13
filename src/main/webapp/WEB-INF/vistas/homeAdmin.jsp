@@ -9,20 +9,27 @@
 			<table class="table container">
 				<thead>
 					<tr>
-				    	<th scope="col">id</th>
-				     	<th scope="col">email</th>
-				      	<th scope="col">rol</th>
-				     	<th scope="col">estado</th>
+				    	<th scope="col">ID</th>
+				     	<th scope="col">Usuario</th>
+				     	<th scope="col">Nombre</th>
+				     	<th scope="col">Apellido</th>
+				     	<th scope="col">Email</th>
+				      	<th scope="col">Rol</th>
+				     	<th scope="col">Estado</th>
+				     	<th scope="col">Habilitar / Deshabilitar</th>
 				    </tr>
 				</thead>
 				<tbody>
 				<c:forEach items="${usuarios}" var="item">
 			    	<tr>
 				     <td>${item.id}</td>
+				     <td>${item.nickname}</td>
+				     <td>${item.nombre}</td>
+				     <td>${item.apellido}</td>
 				     <td>${item.email}</td>
 				     <td>${item.rol}</td>
 				     <td>${item.estado}</td>
-				     <td><a class="btn" href="habilitar-usuario">Habilitar</a></td>
+				     <td><a href="habilitar-usuario/${item.id}">Habilitar</a></td>
 				     
 				    </tr>
 				</c:forEach> 		  
