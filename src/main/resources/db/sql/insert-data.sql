@@ -1,6 +1,10 @@
 INSERT INTO person (NOMBRE, APELLIDO) VALUES ('Reyna', 'Rondo'); 
 
-INSERT INTO usuario(EMAIL,PASSWORD,ROL) VALUES  ('user1','123','admin');
+INSERT INTO usuario(EMAIL,PASSWORD,ROL,ESTADO) VALUES  ('user1','123','admin', '1');
+INSERT INTO usuario(EMAIL,PASSWORD,ROL,ESTADO) VALUES  ('user2','123','user', '1');
+INSERT INTO usuario(EMAIL,PASSWORD,ROL,ESTADO) VALUES  ('user3','123','user', '0');
+INSERT INTO usuario(EMAIL,PASSWORD,ROL,ESTADO) VALUES  ('user4','123','user', '0');
+INSERT INTO usuario(EMAIL,PASSWORD,ROL,ESTADO) VALUES  ('user5','123','user', '1');
 
 INSERT INTO tarea(NOMBRE,DESCRIPCION,ESTADO) VALUES ('ingreso','se logea','1');
 
