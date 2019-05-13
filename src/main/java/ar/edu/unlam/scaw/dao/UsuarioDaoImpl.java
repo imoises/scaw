@@ -1,7 +1,9 @@
 package ar.edu.unlam.scaw.dao;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
@@ -49,17 +51,39 @@ public class UsuarioDaoImpl implements UsuarioDao {
 	}
 	
 	@Override
-	public void habilitarUsuario(Usuario usuario) {
+	public void habilitarUsuario(int idUsuario) {
 
 		final Session session = sessionFactory.getCurrentSession();
-		
-		String hqlUpdate = "update Usuario u set u.estado = :estadoNuevo where u.id = :idUsuario";
-		// or String hqlUpdate = "update Customer set name = :newName where name = :oldName";
-		session.createQuery( hqlUpdate )
-		        .setString( "estadoNuevo", "1" )
-		        .setString( "idUsuario", String.valueOf(usuario.getId()))
+		try {
+		Transaction tx = session.beginTransaction();
+
+		String hqlUpdate = "update Usuario u set u.estado = 'habilitado' where u.id = :idUsuario";
+		int updatedEntities = session.createQuery( hqlUpdate )
+		        .setParameter("idUsuario", idUsuario)
 		        .executeUpdate();
-		session.close();
+		tx.commit();
+		
+		
+        }catch (Exception ex) {
+            session.getTransaction().rollback();  
+        }finally{
+            if(session != null){
+            	session.close();
+            }
+        }
+        
+        
+			/*Query q = session.createQuery("from Usuario u where u.id = :idUsuario ");
+			q.setParameter("idUsuario", idUsuario);
+			Usuario user = (Usuario)q.list().get(0);
+		   
+
+			user.setEstado("habilitado");
+			session.update(user);
+		   
+
+			session.close();*/
+		
 	}
 
 	

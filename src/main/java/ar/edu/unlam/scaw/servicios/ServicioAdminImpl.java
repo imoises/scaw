@@ -34,8 +34,8 @@ public class ServicioAdminImpl implements ServicioAdmin {
 	}
 	
 	@Override
-	public void habilitarUsuario (Usuario usuario) {
-		servicioAdminDao.habilitarUsuario(usuario);
+	public void habilitarUsuario (int idUsuario) {
+		servicioAdminDao.habilitarUsuario(idUsuario);
 	}
 
 }
