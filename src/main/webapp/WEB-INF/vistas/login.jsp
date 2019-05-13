@@ -1,41 +1,95 @@
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html>
-<html>
-	<head>
-	<!-- Bootstrap core CSS -->
-	    <link href="css/bootstrap.min.css" rel="stylesheet" >
-	    <!-- Bootstrap theme -->
-	    <link href="css/bootstrap-theme.min.css" rel="stylesheet">
-	</head>
-	<body>
-		<div class = "container">
-			<div id="loginbox" style="margin-top:50px;" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
-				<%--Definicion de un form asociado a la accion /validar-login por POST. Se indica ademas que el model attribute se--%>
-				<%--debe referenciar con el nombre usuario, spring mapea los elementos de la vista con los atributos de dicho objeto--%>
-					<%--para eso debe coincidir el valor del elemento path de cada input con el nombre de un atributo del objeto --%>
-				<form:form action="validar-login" method="POST" modelAttribute="usuario">
-			    	<h3 class="form-signin-heading">SCAW</h3>
-					<hr class="colorgraph"><br>
-
-					<%--Elementos de entrada de datos, el elemento path debe indicar en que atributo del objeto usuario se guardan los datos ingresados--%>
-					<form:input path="email" id="email" type="text" />
-					<form:input path="password" type="password" id="password" class="form-control"/>     		  
-					
-					<button class="btn btn-lg btn-primary btn-block" Type="Submit"/>Login</button>
-				</form:form>
-
-				<%--Bloque que es visible si el elemento error no estÃ¡ vacÃ­o	--%>
-				<c:if test="${not empty error}">
-			        <h4><span>${error}</span></h4>
-			        <br>
-		        </c:if>	
-			</div>
-		</div>
-		
-		<!-- Placed at the end of the document so the pages load faster -->
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js" ></script>
-		<script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
-		<script src="js/bootstrap.min.js" type="text/javascript"></script>
-	</body>
-</html>
+<%@ include file="_header.jsp" %>
+  <!-- Cover -->
+  <div class="align-items-center d-flex cover section-aquamarine py-5" style="background-image: url(&quot;assets/restaurant/cover_light.jpg&quot;);">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-7 align-self-center text-lg-left text-center">
+          <h1 class="mb-0 mt-5 display-4">Iniciar Sessión</h1>
+          <p class="mb-5">Login</p>
+        </div>
+        <div class="col-lg-5 p-3">
+          <form:form action="validar-login" method="POST" modelAttribute="usuario">
+            <h4 class="mb-4 text-center">Login</h4>
+            <div class="form-group"> <label>Nick</label>
+              <form:input path="nickname" id="nickname" type="text" class="form-control" /> </div>
+            <div class="row">
+            </div>
+            <div class="form-group"> <label>Contraseña</label>
+              <form:input path="password" type="password" id="password" class="form-control" /> </div>
+            <button type="submit" class="btn mt-4 btn-block p-2 btn-primary"><b>Ingresar</b></button>
+          </form:form>
+		  <%--Bloque que es visible si el elemento error no estÃƒÂ¡ vacÃƒÂ­o	--%>
+		  <c:if test="${not empty error}">
+			<h4><span>${error}</span></h4>
+			<br>
+		  </c:if>	
+          <div class="col-md-12 text-center"><a class="btn btn-link text-light text-right" href="#" contenteditable="true">¿Olvidaste la contraseña?</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Parallax section -->
+  <div class="py-5 photo-overlay section-parallax" id="book" style="background-image: url(&quot;assets/restaurant/makereservation_light.jpg&quot;);">
+    <div class="container">
+      <div class="row my-5">
+        <div class="col-lg-11 mx-auto p-3 animate-in-down" style="">
+          <form class="p-4 bg-light" method="post" action="https://formspree.io/">
+            <h4 class="mb-4 text-center">Registarse</h4>
+            <p class="my-4" contenteditable="true">Bienvenidos a la aplicación! Complete el formulario con sus datos y las preguntas para la recuperacion de su contraseña.</p>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group"> <label>Nick</label>
+                  <input class="form-control" type="text"> </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group"> <label>Email</label>
+                  <input class="form-control" type="text"> </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group"> <label>Contraseña</label>
+                  <input type="password" class="form-control"> </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group"> <label>¿Pregunta 1?</label>
+                  <input class="form-control" type="text"> </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group"> <label>Confirmar contraseña</label>
+                  <input type="password" class="form-control"> </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group"> <label>¿Pregunta 1?</label>
+                  <input class="form-control" type="text"> </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group"> <label>Nombre</label>
+                  <input class="form-control" type="text"> </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group"> <label>¿Pregunta 1?</label>
+                  <input class="form-control" type="text"> </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group"> <label>Apellido</label>
+                  <input class="form-control" type="text"> </div>
+              </div>
+              <div class="col-md-6"></div>
+            </div>
+            <div class="row">
+              <div class="col-md-6"></div>
+              <div class="col-md-6"><button type="submit" class="btn mt-4 btn-block btn-primary p-2" style=""><b class="">Registarse</b></button></div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+ <%@ include file="_footer.jsp" %>
