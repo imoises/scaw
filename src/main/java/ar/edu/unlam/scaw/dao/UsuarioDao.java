@@ -8,8 +8,13 @@ import ar.edu.unlam.scaw.modelo.Usuario;
 public interface UsuarioDao {
 
 	Usuario consultarUsuario (Usuario usuario);
-	
+
 	List<Usuario> consultarUsuarios();
 	
 	void habilitarUsuario (Usuario usuario);
+
+	void insertUsuario(Usuario usuario);
+	
+	List<Usuario> buscarUsuarioPorEmail(Usuario usuario);
+
 }

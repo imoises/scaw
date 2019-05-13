@@ -28,28 +28,35 @@
       </div>
     </div>
   </div>
+  
+  <div class="container">
+  	<a href="http://localhost:8080/Scaw/registrarse" class="btn mt-4 btn-block p-2 btn-primary">Registrarse</a>
+  </div>
+  
+  <br><br>
+  
   <!-- Parallax section -->
-  <div class="py-5 photo-overlay section-parallax" id="book" style="background-image: url(&quot;assets/restaurant/makereservation_light.jpg&quot;);">
+  <!-- div class="py-5 photo-overlay section-parallax" id="book" style="background-image: url(&quot;assets/restaurant/makereservation_light.jpg&quot;);">
     <div class="container">
       <div class="row my-5">
         <div class="col-lg-11 mx-auto p-3 animate-in-down" style="">
-          <form class="p-4 bg-light" method="post" action="https://formspree.io/">
+          <form class="p-4 bg-light" modelAttribute="usuario" method="POST">
             <h4 class="mb-4 text-center">Registarse</h4>
             <p class="my-4" contenteditable="true">Bienvenidos a la aplicación! Complete el formulario con sus datos y las preguntas para la recuperacion de su contraseña.</p>
             <div class="row">
               <div class="col-md-6">
                 <div class="form-group"> <label>Nick</label>
-                  <input class="form-control" type="text"> </div>
+                  <input class="form-control" path="nick" type="text"> </div>
               </div>
               <div class="col-md-6">
                 <div class="form-group"> <label>Email</label>
-                  <input class="form-control" type="text"> </div>
+                  <input class="form-control" path="email" type="text"> </div>
               </div>
             </div>
             <div class="row">
               <div class="col-md-6">
                 <div class="form-group"> <label>Contraseña</label>
-                  <input type="password" class="form-control"> </div>
+                  <input type="password" path="password" class="form-control"> </div>
               </div>
               <div class="col-md-6">
                 <div class="form-group"> <label>¿Pregunta 1?</label>
@@ -69,7 +76,7 @@
             <div class="row">
               <div class="col-md-6">
                 <div class="form-group"> <label>Nombre</label>
-                  <input class="form-control" type="text"> </div>
+                  <input class="form-control" path="nombre" type="text"> </div>
               </div>
               <div class="col-md-6">
                 <div class="form-group"> <label>¿Pregunta 1?</label>
@@ -79,17 +86,19 @@
             <div class="row">
               <div class="col-md-6">
                 <div class="form-group"> <label>Apellido</label>
-                  <input class="form-control" type="text"> </div>
+                  <input class="form-control" path="apellido" type="text"> </div>
               </div>
               <div class="col-md-6"></div>
             </div>
             <div class="row">
               <div class="col-md-6"></div>
-              <div class="col-md-6"><button type="submit" class="btn mt-4 btn-block btn-primary p-2" style=""><b class="">Registarse</b></button></div>
+              <div class="col-md-6"><button type="submit" class="btn mt-4 btn-block btn-primary p-2" style=""  formaction="registrarusuario"><b class="">Registarse</b></button></div>
             </div>
           </form>
         </div>
       </div>
     </div>
-  </div>
+  </div -->
+  
+  
  <%@ include file="_footer.jsp" %>
