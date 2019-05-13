@@ -7,6 +7,8 @@ import org.springframework.stereotype.Repository;
 
 import ar.edu.unlam.scaw.modelo.Usuario;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 // implelemtacion del DAO de usuarios, la anotacion @Repository indica a Spring que esta clase es un componente que debe
@@ -31,6 +33,19 @@ public class UsuarioDaoImpl implements UsuarioDao {
 				.add(Restrictions.eq("nickname", usuario.getNickname()))
 				.add(Restrictions.eq("password", usuario.getPassword()))
 				.uniqueResult();
+	}
+	
+	@Override
+	public void insertUsuario(Usuario usuario) {
+		sessionFactory.getCurrentSession().save(usuario);
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Usuario> buscarUsuarioPorEmail(Usuario usuario) {
+		return (sessionFactory.getCurrentSession().createCriteria(Usuario.class)
+				.add(Restrictions.eq("email", usuario.getEmail()))
+				.list());
 	}
 
 }
