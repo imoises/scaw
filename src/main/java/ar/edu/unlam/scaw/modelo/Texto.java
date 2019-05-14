@@ -9,7 +9,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-//Entity
+@Entity
 public class Texto {
 
 	@Id
@@ -18,9 +18,9 @@ public class Texto {
 
 	private String descripcion;
 	
-//	@ManyToOne(fetch=FetchType.EAGER)	
-//	@JoinColumn(name="ID_USUARIO")
-//    private Usuario usuario;
+	@ManyToOne(fetch=FetchType.EAGER)	
+	@JoinColumn(name="ID_USUARIO")
+    private Usuario usuario;
 
 	public int getId() {
 		return id;

@@ -13,19 +13,20 @@ import ar.edu.unlam.scaw.modelo.Texto;
 import ar.edu.unlam.scaw.modelo.Usuario;
 import ar.edu.unlam.scaw.servicios.ServicioUsuario;
 
-//@Controller
+@Controller
 public class ControladorUser {
 
 	@Inject
 	ServicioUsuario servicioUsuario;
 	
-	@RequestMapping(path = "/guardarComentario")
+	@RequestMapping(path = "/guardarComentario",method = RequestMethod.POST)
 	public ModelAndView guardarComentario(@ModelAttribute("textoModel") Texto text, HttpServletRequest request) {		
-		
-		Texto t = new Texto();
-		int idUsuario = (int) request.getSession().getAttribute("id");
+
+		int idUsuario = (int) request.getSession().getAttribute("idUsuario");
 		Usuario usuario = servicioUsuario.buscarUsuarioXIdSERVICE(idUsuario);
-		t.setDescripcion(text.getDescripcion());
+		
+		text.setDescripcion(text.getDescripcion());
+		
 		servicioUsuario.agregarTextoAUsuarioSERVICE(usuario, text);
 
 //		return new ModelAndView("redirect:/misActividades");

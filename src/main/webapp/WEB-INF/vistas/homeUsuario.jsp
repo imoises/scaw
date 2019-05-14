@@ -13,7 +13,7 @@
             <div class="tab-pane fade show active" id="tabone" role="tabpanel">
               <h1 class="display-3 mb-4">Usuario</h1>
               <p class="">Ingrese un texto no mayor a 300 caracteres.</p>
-              <form:form action="guardar-text" method="POST" modelAttribute="textoModel">
+              <form:form action="guardarComentario" method="POST" modelAttribute="textoModel">
                 <div class="form-group"> <!-- input type="textarea" class="form-control" style=""-->
                		<form:textarea path="descripcion" rows="5" cols="30" />
                 </div>

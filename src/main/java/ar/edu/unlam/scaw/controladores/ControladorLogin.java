@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import ar.edu.unlam.scaw.modelo.Texto;
 import ar.edu.unlam.scaw.modelo.Usuario;
 import ar.edu.unlam.scaw.servicios.ServicioLogin;
 
@@ -48,13 +49,14 @@ public class ControladorLogin {
 
 		Usuario usuarioBuscado = servicioLogin.consultarUsuario(usuario);
 		if (usuarioBuscado != null) {
-			request.getSession().setAttribute("ROL", usuarioBuscado.getRol());
+			request.getSession().setAttribute("rol", usuarioBuscado.getRol());
 			request.getSession().setAttribute("idUsuario", usuarioBuscado.getId());
 			
 			if (usuarioBuscado.getRol().equals("admin")) {
 				return new ModelAndView("redirect:/administrar");
 			}else{
 				return new ModelAndView("redirect:/guardarComentario");
+//				return new ModelAndView("homeUsuario");
 			}
 			
 		} else {
@@ -63,6 +65,17 @@ public class ControladorLogin {
 		}
 		return new ModelAndView("login", model);
 	}
+	@RequestMapping("/guardarComentario")
+	public ModelAndView irAHomeUser() {
+
+		ModelMap modelo = new ModelMap();
+		
+		Texto t = new Texto();
+		modelo.put("textoModel", t);
+		
+		return new ModelAndView("homeUsuario", modelo);
+	}
+	
 
 	// Escucha la url /, y redirige a la URL /login, es lo mismo que si se invoca la url /login directamente.
 	@RequestMapping(path = "/", method = RequestMethod.GET)
