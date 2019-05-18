@@ -20,8 +20,15 @@ public class Texto {
 	
 	@ManyToOne(fetch=FetchType.EAGER)	
 	@JoinColumn(name="ID_USUARIO")
+	
     private Usuario usuario;
 
+	public Usuario getUsuario() {
+		return usuario;
+	}
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
 	public int getId() {
 		return id;
 	}
@@ -34,11 +41,5 @@ public class Texto {
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
-//	public void setUsuario(Usuario usuario){
-//		this.usuario = usuario;
-//	}
-//	public Usuario getUsuario(){
-//		return usuario;
-//	}
 	
 }

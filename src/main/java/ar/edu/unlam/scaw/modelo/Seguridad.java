@@ -1,51 +1,68 @@
-package ar.edu.unlam.scaw.modelo;
+				package ar.edu.unlam.scaw.modelo;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 
-//@Entity
+@Entity
 public class Seguridad {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private int id;
+	private String respuesta;	
 	
-	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_usuario", referencedColumnName="id")
-	private Usuario usuario;
-
-	private String pregunta;
-	private String respuesta;
-
-	public Long getId() {
+	@ManyToOne
+	@JoinColumn(name="ID_USUARIO")	
+	private Usuario u;
+	
+	@ManyToMany(cascade = { CascadeType.ALL })
+    @JoinTable(
+        name = "SEGURIDAD_PREGUNTA", 
+        joinColumns = { @JoinColumn(name = "ID_SEGURIDAD") }, 
+        inverseJoinColumns = { @JoinColumn(name = "ID_PREGUNTA") }
+    )
+    List<Pregunta> preguntas = new ArrayList<>();
+	
+	public int getId() {
 		return id;
 	}
-	public void setId(Long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
-	public String getPregunta() {
-		return pregunta;
-	}
-	public void setPregunta(String pregunta) {
-		this.pregunta = pregunta;
-	}
+	
 	public String getRespuesta() {
 		return respuesta;
 	}
 	public void setRespuesta(String respuesta) {
 		this.respuesta = respuesta;
 	}
-	public void setUsuario(Usuario usuario){
-		this.usuario = usuario;
+	public void setUsuario(Usuario u){
+		this.u = u;
 	}
 	public Usuario getUsuario(){
-		return usuario;
+		return u;
+	}
+	public Usuario getU() {
+		return u;
+	}
+	public void setU(Usuario u) {
+		this.u = u;
+	}
+	public List<Pregunta> getPreguntas() {
+		return preguntas;
+	}
+	public void setPreguntas(List<Pregunta> preguntas) {
+		this.preguntas = preguntas;
 	}
 	
 }

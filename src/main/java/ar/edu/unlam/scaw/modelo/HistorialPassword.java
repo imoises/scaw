@@ -11,45 +11,47 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class Actividad {
-	
+public class HistorialPassword {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	private String descripcion;
+	private String password;
 	private Timestamp fecha;
 	
-	//para el mapeo con la entity Usuario
 	@ManyToOne(fetch=FetchType.EAGER)	
-	@JoinColumn(name="ID_USUARIO")	
+	@JoinColumn(name="ID_USUARIO")
     private Usuario usuario;
-	
+
 	public int getId() {
 		return id;
 	}
+
 	public void setId(int id) {
 		this.id = id;
 	}
-	
-	public void setDescripcion(String descripcion){
-		this.descripcion = descripcion;
+
+	public String getPassword() {
+		return password;
 	}
-	public String getDescripcion(){
-		return descripcion;
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
-	
+
 	public Timestamp getFecha() {
 		return fecha;
 	}
+
 	public void setFecha(Timestamp fecha) {
 		this.fecha = fecha;
 	}
-	public void setUsuario(Usuario usuario){
-		this.usuario = usuario;
-	}
-	public Usuario getUsuario(){
+
+	public Usuario getUsuario() {
 		return usuario;
 	}
-	
-	
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
 }

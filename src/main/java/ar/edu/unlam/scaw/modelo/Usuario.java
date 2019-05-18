@@ -24,7 +24,10 @@ public class Usuario {
 	private String password;
 	private String rol;
 	private String estado;
-
+	
+	@OneToMany(mappedBy="u")
+	private List<Seguridad> listaSeg = new ArrayList<>(); 
+	
 //	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
 //	private List<Actividad> actividad = new ArrayList<Actividad>();
 //	
