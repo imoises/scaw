@@ -67,36 +67,26 @@ public class UsuarioDaoImpl implements UsuarioDao {
 	public void habilitarUsuario(int idUsuario) {
 
 		final Session session = sessionFactory.getCurrentSession();
-		try {
-		Transaction tx = session.beginTransaction();
-
-		String hqlUpdate = "update Usuario u set u.estado = 'habilitado' where u.id = :idUsuario";
-		int updatedEntities = session.createQuery( hqlUpdate )
-		        .setParameter("idUsuario", idUsuario)
-		        .executeUpdate();
-		tx.commit();
-		
-		
-        }catch (Exception ex) {
-            session.getTransaction().rollback();  
-        }finally{
-            if(session != null){
-            	session.close();
-            }
-        }
         
+		Query q = session.createQuery("from Usuario u where u.id = :idUsuario ");
+		q.setParameter("idUsuario", idUsuario);
+		Usuario user = (Usuario)q.list().get(0);
+
+		user.setEstado("habilitado");
+		session.update(user);
+	}
+	
+	@Override
+	public void deshabilitarUsuario(int idUsuario) {
+
+		final Session session = sessionFactory.getCurrentSession();
         
-			/*Query q = session.createQuery("from Usuario u where u.id = :idUsuario ");
-			q.setParameter("idUsuario", idUsuario);
-			Usuario user = (Usuario)q.list().get(0);
-		   
+		Query q = session.createQuery("from Usuario u where u.id = :idUsuario ");
+		q.setParameter("idUsuario", idUsuario);
+		Usuario user = (Usuario)q.list().get(0);
 
-			user.setEstado("habilitado");
-			session.update(user);
-		   
-
-			session.close();*/
-		
+		user.setEstado("deshabilitado");
+		session.update(user);
 	}
 
 	@Override

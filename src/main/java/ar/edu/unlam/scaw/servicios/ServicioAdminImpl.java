@@ -32,10 +32,15 @@ public class ServicioAdminImpl implements ServicioAdmin {
 	public List<Usuario> consultarUsuarios() {
 		return servicioAdminDao.consultarUsuarios();
 	}
-	
+
 	@Override
 	public void habilitarUsuario (int idUsuario) {
 		servicioAdminDao.habilitarUsuario(idUsuario);
+	}
+	
+	@Override
+	public void deshabilitarUsuario (int idUsuario) {
+		servicioAdminDao.deshabilitarUsuario(idUsuario);
 	}
 
 }

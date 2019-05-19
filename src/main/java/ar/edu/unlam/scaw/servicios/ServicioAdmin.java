@@ -10,6 +10,8 @@ public interface ServicioAdmin {
 	List<Usuario> consultarUsuarios();
 
 	Usuario consultarUsuario(Usuario usuario);
-	
+
 	void habilitarUsuario(int idUsuario);
+	
+	void deshabilitarUsuario(int idUsuario);
 }

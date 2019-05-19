@@ -25,24 +25,14 @@ public class ControladorAdmin {
 	@Inject
 	private ServicioAdmin servicioAdmin;
 
-	// Este metodo escucha la URL localhost:8080/NOMBRE_APP/login si la misma es invocada por metodo http GET
 	@RequestMapping("/administrar")
 	public ModelAndView irAAdministar() {
 
 		ModelMap modelo = new ModelMap();
-		// Se agrega al modelo un objeto del tipo Usuario con key 'usuario' para que el mismo sea asociado
-		// al model attribute del form que esta definido en la vista 'login'
-
-		// invoca el metodo consultarUsuario del servicio y hace un redirect a la URL /home, esto es, en lugar de enviar a una vista
-		// hace una llamada a otro action a través de la URL correspondiente a ésta
 		List<Usuario> usuarios = servicioAdmin.consultarUsuarios();
 		modelo.put("usuarios", usuarios);
-		// Se va a la vista login (el nombre completo de la lista se resuelve utilizando el view resolver definido en el archivo spring-servlet.xml)
-		// y se envian los datos a la misma  dentro del modelo
 		return new ModelAndView("homeAdmin", modelo);
 	}
-	
-	
 
 	@RequestMapping(path = "/habilitar-usuario/{idUsuario}", method = RequestMethod.GET)
 	public ModelAndView irAHabilitarUsuario(@PathVariable int idUsuario) {
@@ -53,7 +43,21 @@ public class ControladorAdmin {
 		
 		List<Usuario> usuarios = servicioAdmin.consultarUsuarios();
 		modelo.put("usuarios", usuarios);
-		return new ModelAndView("homeAdmin", modelo);
+
+		return new ModelAndView("redirect:/administrar", modelo);
+	}
+	
+	@RequestMapping(path = "/deshabilitar-usuario/{idUsuario}", method = RequestMethod.GET)
+	public ModelAndView irADeshabilitarUsuario(@PathVariable int idUsuario) {
+
+		ModelMap modelo = new ModelMap();
+		
+		servicioAdmin.deshabilitarUsuario(idUsuario);
+		
+		List<Usuario> usuarios = servicioAdmin.consultarUsuarios();
+		modelo.put("usuarios", usuarios);
+
+		return new ModelAndView("redirect:/administrar", modelo);
 	}
 	
 	
