@@ -10,12 +10,14 @@ public interface UsuarioDao {
 	Usuario consultarUsuario (Usuario usuario);
 
 	List<Usuario> consultarUsuarios();
-	
-	void habilitarUsuario (Usuario usuario);
+
+	void habilitarUsuario(int idUsuario);
 
 	public Usuario buscarUsuarioXId(int id);
 
 	void insertUsuario(Usuario usuario);
 	
 	List<Usuario> buscarUsuarioPorEmail(Usuario usuario);
+
+	
 }

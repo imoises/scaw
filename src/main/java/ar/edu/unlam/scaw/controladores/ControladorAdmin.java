@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -43,13 +44,25 @@ public class ControladorAdmin {
 	
 	
 
-	@RequestMapping(path = "/habilitar-usuario", method = RequestMethod.POST)
-	public ModelAndView irAHabilitarUsuario(@ModelAttribute("usuario") Usuario usuario, HttpServletRequest request) {
+	@RequestMapping(path = "/habilitar-usuario/{idUsuario}", method = RequestMethod.GET)
+	public ModelAndView irAHabilitarUsuario(@PathVariable int idUsuario) {
 
 		ModelMap modelo = new ModelMap();
 		
-		servicioAdmin.habilitarUsuario(usuario);
+		servicioAdmin.habilitarUsuario(idUsuario);
+		
+		List<Usuario> usuarios = servicioAdmin.consultarUsuarios();
+		modelo.put("usuarios", usuarios);
 		return new ModelAndView("homeAdmin", modelo);
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 }

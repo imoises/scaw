@@ -11,5 +11,5 @@ public interface ServicioAdmin {
 
 	Usuario consultarUsuario(Usuario usuario);
 	
-	void habilitarUsuario(Usuario usuario);
+	void habilitarUsuario(int idUsuario);
 }
