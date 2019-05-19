@@ -97,6 +97,16 @@ public class Usuario {
 	public void setEstado(String estado) {
 		this.estado = estado;
 	}
+
+	public List<Seguridad> getListaSeg() {
+		return listaSeg;
+	}
+
+	public void setListaSeg(List<Seguridad> listaSeg) {
+		this.listaSeg = listaSeg;
+	}
+	
+	
 	
 //	public List<Actividad> getActividad() {
 //		return actividad;
@@ -112,5 +122,5 @@ public class Usuario {
 //	
 //	public void setTexto(List<Texto> texto) {
 //		this.texto = texto;
-//	}	
+//	}
 }

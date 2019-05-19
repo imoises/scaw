@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import ar.edu.unlam.scaw.modelo.Actividad;
+import ar.edu.unlam.scaw.modelo.ModeloRegistrarse;
 import ar.edu.unlam.scaw.modelo.Texto;
 import ar.edu.unlam.scaw.modelo.Usuario;
 import ar.edu.unlam.scaw.servicios.ServicioActividad;
@@ -42,6 +43,10 @@ public class ControladorLogin {
 		// al model attribute del form que esta definido en la vista 'login'
 		Usuario usuario = new Usuario();
 		modelo.put("usuario", usuario);
+		//++++++
+		ModeloRegistrarse modelRegis = new ModeloRegistrarse();
+		modelo.put("modeloRegistrarse", modelRegis);
+		//++++++
 		// Se va a la vista login (el nombre completo de la lista se resuelve utilizando el view resolver definido en el archivo spring-servlet.xml)
 		// y se envian los datos a la misma  dentro del modelo
 		return new ModelAndView("login", modelo);
@@ -81,6 +86,10 @@ public class ControladorLogin {
 			// si el usuario no existe agrega un mensaje de error en el modelo.
 			model.put("error", "Usuario o clave incorrecta");
 		}
+		//++++
+		ModeloRegistrarse modelRegis = new ModeloRegistrarse();
+		model.put("modeloRegistrarse", modelRegis);
+		//++++
 		return new ModelAndView("login", model);
 	}
 	@RequestMapping("/guardarComentario")

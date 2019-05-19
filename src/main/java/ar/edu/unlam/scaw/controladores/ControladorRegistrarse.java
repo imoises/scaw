@@ -9,35 +9,33 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import ar.edu.unlam.scaw.modelo.ModeloRegistrarse;
 import ar.edu.unlam.scaw.modelo.Usuario;
-import ar.edu.unlam.scaw.servicios.ServicioUsuario;
+import ar.edu.unlam.scaw.servicios.ServicioRegistrarUsuario;
 
 @Controller
 public class ControladorRegistrarse {
-
+	
 	@Inject
-	private ServicioUsuario servicioUsuario;
+	private ServicioRegistrarUsuario servicioRegistrarUsuario;
 	
-	@RequestMapping("/registrarse")
-	public ModelAndView Registrar() {
-		ModelMap modelo = new ModelMap();
-		Usuario usuario = new Usuario();
-		modelo.put("usuario", usuario);
+	@RequestMapping(path = "/validar-registrarse", method = RequestMethod.POST)
+	public ModelAndView validarRegistrarUsuario(@ModelAttribute("modeloRegistrarse") ModeloRegistrarse mUsuarioAReg) {
 		
-		return new ModelAndView("registrarse", modelo);
-	}
-	
-	@RequestMapping(path = "/registrarusuario", method = RequestMethod.POST)
-	public ModelAndView registrarUsuario(@ModelAttribute("usuario") Usuario agregarusuario) {
-		ModelMap modelo = new ModelMap();
-		Usuario usuario = new Usuario();
-		modelo.put("usuario", usuario);
-
-		if(servicioUsuario.agregarUsuario(agregarusuario)) {
-			return new ModelAndView("redirect:/login");
+		if(servicioRegistrarUsuario.validarUsuarioARegistrar(mUsuarioAReg)) {
+			
+			servicioRegistrarUsuario.registatUsuario(mUsuarioAReg);
+			
+			return new ModelAndView("ok");
 		}
 		
-		return new ModelAndView("/registrarse", modelo);
+		ModelMap modelo = new ModelMap();
+		Usuario usuario = new Usuario();
+		modelo.put("usuario", usuario);
+		
+		modelo.put("modeloRegistrarse", mUsuarioAReg);
+		
+		return new ModelAndView("login", modelo);
 	}
 	
 }

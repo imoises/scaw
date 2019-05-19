@@ -38,59 +38,59 @@
     <div class="container">
       <div class="row my-5">
         <div class="col-lg-11 mx-auto p-3 animate-in-down" style="">
-          <form:form action="registrarusuario" modelAttribute="usuario" method="POST">
+          <form:form action="validar-registrarse" modelAttribute="modeloRegistrarse" method="POST">
             <h4 class="mb-4 text-center">Registarse</h4>
             <p class="my-4" contenteditable="true">Bienvenidos a la aplicación! Complete el formulario con sus datos y las preguntas para la recuperacion de su contraseña.</p>
             <div class="row">
               <div class="col-md-6">
                 <div class="form-group"> <label>Nick</label>
-                  <form:input path="nickname" type="text" class="form-control"  /> </div>
+                  <form:input path="nickname" type="text" class="form-control" placeholder="nick" /> </div>
               </div>
               <div class="col-md-6">
                 <div class="form-group"> <label>Email</label>
-                  <form:input path="email" type="email" class="form-control" /> </div>
+                  <form:input path="email" type="email" class="form-control" placeholder="email"/> </div>
               </div>
             </div>
             <div class="row">
               <div class="col-md-6">
                 <div class="form-group"> <label>Contraseña</label>
-                  <form:input path="password" type="password" class="form-control"  /> </div>
+                  <form:input path="password" type="password" class="form-control" placeholder="contraseña" /> </div>
               </div>
               <div class="col-md-6">
                 <div class="form-group"> <label>¿Pregunta 1?</label>
-                  <input class="form-control" type="text"> </div>
+                  <form:input path="pregunta" class="form-control" type="text" placeholder="pregunta 1" /> </div>
               </div>
             </div>
             <div class="row">
               <div class="col-md-6">
                 <div class="form-group"> <label>Confirmar contraseña</label>
-                  <input type="password" class="form-control"> </div>
+                  <form:input path="confirmaPassword" type="password" class="form-control" placeholder="confirmaContraseña" /> </div>
               </div>
               <div class="col-md-6">
-                <div class="form-group"> <label>¿Pregunta 1?</label>
-                  <input class="form-control" type="text"> </div>
+                <div class="form-group"> <label>Respuesta</label>
+                  <form:input path="respuesta" class="form-control" type="text" placeholder="respuesta" /> </div>
               </div>
             </div>
             <div class="row">
               <div class="col-md-6">
                 <div class="form-group"> <label>Nombre</label>
-                  <form:input path="nombre" type="text" class="form-control"  /> </div>
+                  <form:input path="nombre" type="text" class="form-control" placeholder="nombre" /> </div>
               </div>
               <div class="col-md-6">
-                <div class="form-group"> <label>¿Pregunta 1?</label>
-                  <input class="form-control" type="text"> </div>
+                <div class="form-group"> <label>Confirmar respuesta</label>
+                  <form:input path="confirmaRespusta" class="form-control" type="text" placeholder="confirmar respuesta" /> </div>
               </div>
             </div>
             <div class="row">
               <div class="col-md-6">
                 <div class="form-group"> <label>Apellido</label>
-                  <form:input path="apellido" type="text" class="form-control" /> </div>
+                  <form:input path="apellido" type="text" class="form-control" placeholder="apellido" /> </div>
               </div>
               <div class="col-md-6"></div>
             </div>
             <div class="row">
               <div class="col-md-6"></div>
-              <div class="col-md-6"><button type="submit" class="btn mt-4 btn-block btn-primary p-2" style=""  formaction="registrarusuario"><b class="">Registarse</b></button></div>
+              <div class="col-md-6"><button type="submit" class="btn mt-4 btn-block btn-primary p-2" style=""  formaction="validar-registrarse"><b class="">Registarse</b></button></div>
             </div>
           </form:form>
         </div>
