@@ -39,9 +39,6 @@
                 </table>
               </div>
             </div>
-            <div class="tab-pane fade" id="tabthree" role="tabpanel">
-              <p class="">In my soul and absorb its power, like the form of a beloved mistress, then I often think with longing.</p>
-            </div>
           </div>
         </div>
       </div>

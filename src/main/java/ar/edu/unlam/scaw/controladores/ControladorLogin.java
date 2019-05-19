@@ -73,6 +73,9 @@ public class ControladorLogin {
 			if (usuarioBuscado.getRol().equals("admin")) {
 				return new ModelAndView("redirect:/administrar");
 			}else{
+				if (usuarioBuscado.getEstado().equals("deshabilitado")) {
+					return new ModelAndView("deshabilitado");
+				}
 				return new ModelAndView("redirect:/guardarComentario");
 //				return new ModelAndView("homeUsuario");
 			}
