@@ -8,5 +8,5 @@ public interface ServicioUsuario {
 	public void agregarTextoAUsuarioSERVICE(Usuario usuario, Texto t);
 	boolean agregarUsuario(Usuario usuario);
 	public Usuario consultarUsuarioPorEmailYPassword(Usuario usuario);
-	void actualizarPasswordUsuario(Usuario usuario);
+	void updateUsuario(Usuario usuario);
 }

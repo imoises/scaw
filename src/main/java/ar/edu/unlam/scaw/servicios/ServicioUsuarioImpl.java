@@ -48,8 +48,8 @@ public class ServicioUsuarioImpl implements ServicioUsuario{
 	}
 	
 	@Override
-	public void actualizarPasswordUsuario(Usuario usuario) {
-		servicioUsuarioDao.actualizarPasswordUsuario(usuario);
+	public void updateUsuario(Usuario usuario) {
+		servicioUsuarioDao.updateUsuario(usuario);
 	}
 	
 	

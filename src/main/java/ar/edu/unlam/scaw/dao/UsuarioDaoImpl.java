@@ -103,7 +103,7 @@ public class UsuarioDaoImpl implements UsuarioDao {
 	}
 	
 	@Override
-	public void actualizarPasswordUsuario(Usuario usuario) {
+	public void updateUsuario(Usuario usuario) {
 		sessionFactory.getCurrentSession().update(usuario);
 	}
 

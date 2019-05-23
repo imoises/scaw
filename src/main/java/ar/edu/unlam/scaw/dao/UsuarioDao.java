@@ -23,6 +23,6 @@ public interface UsuarioDao {
 	
 	public Usuario consultarUsuarioPorEmailYPassword(Usuario usuario);
 	
-	void actualizarPasswordUsuario(Usuario usuario);
+	void updateUsuario(Usuario usuario);
 
 }

@@ -49,7 +49,7 @@ public class ControladorResetPassword
 			if(!hashedPassword.equals(usuario.getPassword())) 
 			{
 				usuario.setPassword(newPassword);
-				servicioUsuario.actualizarPasswordUsuario(usuario);
+				servicioUsuario.updateUsuario(usuario);
 				modelo.put("msg", "Contraseña cambiada correctamente.");
 				
 			}else {
