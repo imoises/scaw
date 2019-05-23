@@ -29,7 +29,7 @@
       <div class="collapse navbar-collapse text-center justify-content-center" id="navbar3SupportedContent">
         <ul class="navbar-nav">
           <li class="nav-item mx-3">
-            <a class="nav-link text-light" href="#"><b>LOGIN</b></a>
+            <a class="nav-link text-light" href="login"><b>LOGIN</b></a>
           </li>
         </ul>
         <a class="btn navbar-btn btn-secondary mx-2" href="#book"><b>REGISTRARSE</b></a>

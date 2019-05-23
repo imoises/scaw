@@ -46,5 +46,16 @@ public class ServicioUsuarioImpl implements ServicioUsuario{
 			return false;
 		}
 	}
+	
+	@Override
+	public void actualizarPasswordUsuario(Usuario usuario) {
+		servicioUsuarioDao.actualizarPasswordUsuario(usuario);
+	}
+	
+	
+	@Override
+	public Usuario consultarUsuarioPorEmailYPassword(Usuario usuario) {
+		return servicioUsuarioDao.consultarUsuarioPorEmailYPassword(usuario);
+	}
 
 }
