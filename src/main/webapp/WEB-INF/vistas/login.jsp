@@ -56,20 +56,10 @@
                 <div class="form-group"> <label>Contraseña</label>
                   <form:input path="password" type="password" class="form-control"  /> </div>
               </div>
-              <div class="col-md-6">
-                <div class="form-group"> <label>¿Pregunta 1?</label>
-                  <input class="form-control" type="text"> </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-6">
+              <!--div class="col-md-6">
                 <div class="form-group"> <label>Confirmar contraseña</label>
                   <input type="password" class="form-control"> </div>
-              </div>
-              <div class="col-md-6">
-                <div class="form-group"> <label>¿Pregunta 1?</label>
-                  <input class="form-control" type="text"> </div>
-              </div>
+              </div-->
             </div>
             <div class="row">
               <div class="col-md-6">
@@ -77,20 +67,13 @@
                   <form:input path="nombre" type="text" class="form-control"  /> </div>
               </div>
               <div class="col-md-6">
-                <div class="form-group"> <label>¿Pregunta 1?</label>
-                  <input class="form-control" type="text"> </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-6">
                 <div class="form-group"> <label>Apellido</label>
                   <form:input path="apellido" type="text" class="form-control" /> </div>
               </div>
-              <div class="col-md-6"></div>
             </div>
             <div class="row">
-              <div class="col-md-6"></div>
-              <div class="col-md-6"><button type="submit" class="btn mt-4 btn-block btn-primary p-2" style=""  formaction="registrarusuario"><b class="">Registarse</b></button></div>
+              <div class="col-md-12"></div>
+              <div class="col-md-12"><button type="submit" class="btn mt-4 btn-block btn-primary p-2" style=""  formaction="registrarusuario"><b class="">Registarse</b></button></div>
             </div>
           </form:form>
         </div>

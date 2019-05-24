@@ -21,10 +21,11 @@ public class ControladorRegistrarse {
 	@RequestMapping("/registrarse")
 	public ModelAndView Registrar() {
 		ModelMap modelo = new ModelMap();
+		
 		Usuario usuario = new Usuario();
 		modelo.put("usuario", usuario);
 		
-		return new ModelAndView("registrarse", modelo);
+		return new ModelAndView("login", modelo);
 	}
 	
 	@RequestMapping(path = "/registrarusuario", method = RequestMethod.POST)
@@ -37,7 +38,7 @@ public class ControladorRegistrarse {
 			return new ModelAndView("redirect:/login");
 		}
 		
-		return new ModelAndView("/registrarse", modelo);
+		return new ModelAndView("/login", modelo);
 	}
 	
 }
