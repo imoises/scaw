@@ -5,7 +5,6 @@
 	      <div class="row">
 	        <div class="col-lg-7 align-self-center text-lg-left text-center">
 	          <h1 class="mb-0 mt-5 display-4">Cambiar contraseña</h1>
-	          <p class="mb-5">Cambiar contraseña</p>
 	        </div>
 	        <div class="col-lg-5 p-3">
 	        <form:form action="resetPassword" modelAttribute="usuario" method="POST">
@@ -27,7 +26,6 @@
 					    <button type="submit" class="btn btn-success">Cambiar contraseña</button>
 					  </div>
 				  </div>
-				  <%--Bloque que es visible si el elemento error no estÃƒÂ¡ vacÃƒÂ­o	--%>
 				  <c:if test="${not empty msg}">
 					<h4><span>${msg}</span></h4>
 					<br>
