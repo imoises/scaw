@@ -62,7 +62,7 @@ public class ControladorForgotPassword {
 			
 			usuarios.get(0).setPassword(randomCharacters);
 			
-			String destinatario =  "tallerwebtp@gmail.com";
+			String destinatario =  usuarios.get(0).getEmail();
 		    String asunto = "Recupero de contraseña";
 		    String cuerpo = "Nueva contraseña: "+randomCharacters;
 			String value = servicioUsuario.envioEmail(destinatario, asunto, cuerpo);
