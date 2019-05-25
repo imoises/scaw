@@ -3,18 +3,19 @@ package ar.edu.unlam.scaw.controladores;
 import java.util.List;
 
 import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import ar.edu.unlam.scaw.modelo.Actividad;
 import ar.edu.unlam.scaw.modelo.Usuario;
+import ar.edu.unlam.scaw.servicios.ServicioActividad;
 import ar.edu.unlam.scaw.servicios.ServicioAdmin;
+import ar.edu.unlam.scaw.servicios.ServicioUsuario;
 
 @Controller
 public class ControladorAdmin {
@@ -24,6 +25,10 @@ public class ControladorAdmin {
 	// @Service o @Repository y debe estar en un paquete de los indicados en applicationContext.xml
 	@Inject
 	private ServicioAdmin servicioAdmin;
+	@Inject
+	private ServicioUsuario servicioUsuario;
+	@Inject
+	private ServicioActividad servicioActividad;
 
 	@RequestMapping("/administrar")
 	public ModelAndView irAAdministar() {
@@ -46,7 +51,7 @@ public class ControladorAdmin {
 
 		return new ModelAndView("redirect:/administrar", modelo);
 	}
-	
+
 	@RequestMapping(path = "/deshabilitar-usuario/{idUsuario}", method = RequestMethod.GET)
 	public ModelAndView irADeshabilitarUsuario(@PathVariable int idUsuario) {
 
@@ -60,13 +65,17 @@ public class ControladorAdmin {
 		return new ModelAndView("redirect:/administrar", modelo);
 	}
 	
-	
-	
-	
-	
-	
-	
-	
+	@RequestMapping(path = "/actividad-usuario/{idUsuario}", method = RequestMethod.GET)
+	public ModelAndView irAActividadUsuario(@PathVariable int idUsuario) {
+
+		ModelMap modelo = new ModelMap();
+		Usuario usuario = servicioUsuario.buscarUsuarioXIdSERVICE(idUsuario);
+		List<Actividad> actividades = servicioActividad.listarActividadesXUsuario(usuario);
+		
+		modelo.put("actividades", actividades);
+
+		return new ModelAndView("verActividades", modelo);
+	}
 	
 
 }

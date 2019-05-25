@@ -16,6 +16,7 @@
 				     	<th scope="col">Email</th>
 				      	<th scope="col">Rol</th>
 				     	<th scope="col">Estado</th>
+				     	<th scope="col">Historial</th>
 				     	<th scope="col">Habilitar / Deshabilitar</th>
 				    </tr>
 				</thead>
@@ -29,6 +30,7 @@
 				     <td>${item.email}</td>
 				     <td>${item.rol}</td>
 				     <td>${item.estado}</td>
+				     <td><a href="actividad-usuario/${item.id}">Ver actividad</a></td>
 				     <td>
 					     <c:choose>
 						 	<c:when test="${item.estado == 'habilitado'}">
