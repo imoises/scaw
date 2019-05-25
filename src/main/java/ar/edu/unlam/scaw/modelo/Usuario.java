@@ -80,7 +80,7 @@ public class Usuario {
 	public String getPassword() {
 		return password;
 	}
-
+	
 	public void setPassword(String password) {
 		this.password = DigestUtils.md5Hex(password);
 	}
