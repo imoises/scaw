@@ -1,8 +1,6 @@
 package ar.edu.unlam.scaw.controladores;
 
 import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
@@ -15,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import ar.edu.unlam.scaw.modelo.Actividad;
-import ar.edu.unlam.scaw.modelo.Texto;
 import ar.edu.unlam.scaw.modelo.Usuario;
 import ar.edu.unlam.scaw.servicios.ServicioActividad;
 import ar.edu.unlam.scaw.servicios.ServicioLogin;
@@ -69,21 +66,19 @@ public class ControladorLogin {
 			
 			request.getSession().setAttribute("rol", usuarioBuscado.getRol());
 			request.getSession().setAttribute("idUsuario", usuarioBuscado.getId());
-			
+
 			if (usuarioBuscado.getRol().equals("admin")) {
 				return new ModelAndView("redirect:/administrar");
-			}else{
-				if (usuarioBuscado.getEstado().equals("deshabilitado")) {
-					return new ModelAndView("deshabilitado");
-				}
-				return new ModelAndView("redirect:/mostrarUsuario");
-//				return new ModelAndView("homeUsuario");
 			}
-			
-		} else {
-			// si el usuario no existe agrega un mensaje de error en el modelo.
-			model.put("error", "Usuario o clave incorrecta");
-		}
+			if (usuarioBuscado.getEstado().equals("habilitado")) {
+				return new ModelAndView("redirect:/mostrarUsuario");
+			}
+			if (usuarioBuscado.getEstado().equals("deshabilitado")) {
+				return new ModelAndView("deshabilitado");
+			}
+		} 
+		// si el usuario no existe o si es algun rol bloqueado (root, admin, sa) agrega un mensaje de error en el modelo.
+		model.put("error", "Usuario o clave incorrecta");
 		return new ModelAndView("login", model);
 	}
 
