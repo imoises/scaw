@@ -22,8 +22,7 @@
 		  <c:if test="${not empty error}">
 			<h4><span>${error}</span></h4>
 			<br>
-		  </c:if>	
-		  <div class="col-md-12 text-center"><a class="btn btn-link text-light text-right" href="reset_password">Cambiar contraseña</a></div>
+		  </c:if>
           <div class="col-md-12 text-center"><a class="btn btn-link text-light text-right" href="forgot_password">¿Olvidaste la contraseña?</a></div>
         </div>
       </div>

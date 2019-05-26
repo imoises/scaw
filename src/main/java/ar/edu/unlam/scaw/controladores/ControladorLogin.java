@@ -66,15 +66,18 @@ public class ControladorLogin {
 			
 			request.getSession().setAttribute("rol", usuarioBuscado.getRol());
 			request.getSession().setAttribute("idUsuario", usuarioBuscado.getId());
+			request.getSession().setAttribute("email", usuarioBuscado.getEmail());
 
+
+			model.put("usuario", usuarioBuscado);
 			if (usuarioBuscado.getRol().equals("admin")) {
-				return new ModelAndView("redirect:/administrar");
+				return new ModelAndView("redirect:/administrar", model);
 			}
 			if (usuarioBuscado.getEstado().equals("habilitado")) {
-				return new ModelAndView("redirect:/mostrarUsuario");
+				return new ModelAndView("redirect:/mostrarUsuario", model);
 			}
 			if (usuarioBuscado.getEstado().equals("deshabilitado")) {
-				return new ModelAndView("deshabilitado");
+				return new ModelAndView("deshabilitado", model);
 			}
 		} 
 		// si el usuario no existe o si es algun rol bloqueado (root, admin, sa) agrega un mensaje de error en el modelo.

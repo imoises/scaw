@@ -25,12 +25,9 @@ public class ControladorUser {
 	ServicioUsuario servicioUsuario;
 	@Inject
 	ServicioActividad servicioActividad;
-	
-	@RequestMapping(path="/mostrarUsuario",method = RequestMethod.GET)
-	public ModelAndView mostrarUsuario(HttpServletRequest request){
-		
-		int idUsuario = (int) request.getSession().getAttribute("idUsuario");
-		Usuario usuario = servicioUsuario.buscarUsuarioXIdSERVICE(idUsuario);
+
+	@RequestMapping(path = "/mostrarUsuario", method = { RequestMethod.POST, RequestMethod.GET })
+	public ModelAndView mostrarUsuario(@ModelAttribute("usuario") Usuario usuario, HttpServletRequest request) {	
 		
 		List<Actividad> listaActividades = servicioActividad.listarActividadesXUsuario(usuario);
 		Texto t = new Texto();
@@ -39,10 +36,16 @@ public class ControladorUser {
 		model.put("keyListaActividades", listaActividades);
 		model.put("textoModel", t);
 		
-		return new ModelAndView("homeUsuario",model);
+		String msg = (String) request.getSession().getAttribute("msg");
+		if(msg != null && !msg.isEmpty()){
+			model.put("msg", msg);
+			request.getSession().removeAttribute("msg");
+		}
+		
+		return new ModelAndView("homeUsuario", model);
 	}
 	
-	@RequestMapping(path = "/guardarComentario",method = RequestMethod.POST)
+	@RequestMapping(path = "/guardarComentario", method = RequestMethod.POST)
 	public ModelAndView guardarComentario(@ModelAttribute("textoModel") Texto text, HttpServletRequest request) {		
 		
 		int idUsuario = (int) request.getSession().getAttribute("idUsuario");
