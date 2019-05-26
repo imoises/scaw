@@ -76,7 +76,7 @@ public class ControladorLogin {
 				if (usuarioBuscado.getEstado().equals("deshabilitado")) {
 					return new ModelAndView("deshabilitado");
 				}
-				return new ModelAndView("redirect:/guardarComentario");
+				return new ModelAndView("redirect:/mostrarUsuario");
 //				return new ModelAndView("homeUsuario");
 			}
 			
@@ -86,17 +86,6 @@ public class ControladorLogin {
 		}
 		return new ModelAndView("login", model);
 	}
-	@RequestMapping("/guardarComentario")
-	public ModelAndView irAHomeUser() {
-
-		ModelMap modelo = new ModelMap();
-		
-		Texto t = new Texto();
-		modelo.put("textoModel", t);
-		
-		return new ModelAndView("homeUsuario", modelo);
-	}
-	
 
 	// Escucha la url /, y redirige a la URL /login, es lo mismo que si se invoca la url /login directamente.
 	@RequestMapping(path = "/", method = RequestMethod.GET)

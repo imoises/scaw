@@ -28,13 +28,17 @@
                     <tr>
                       <th scope="col">#</th>
                       <th scope="col">Descripción</th>
+                      <th scope="col">Fecha</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <th scope="row">1</th>
-                      <td>Mark</td>
-                    </tr>
+                  	<c:forEach items="${keyListaActividades}" var="item">
+                      	<tr>
+                      		<th scope="row">${item.id}</th>
+                      		<td>${item.descripcion}</td>
+                      		<td>${item.fecha}</td>
+                      	</tr>
+                  	</c:forEach>
                   </tbody>
                 </table>
               </div>

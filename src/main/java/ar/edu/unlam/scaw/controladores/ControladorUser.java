@@ -26,9 +26,25 @@ public class ControladorUser {
 	@Inject
 	ServicioActividad servicioActividad;
 	
+	@RequestMapping(path="/mostrarUsuario",method = RequestMethod.GET)
+	public ModelAndView mostrarUsuario(HttpServletRequest request){
+		
+		int idUsuario = (int) request.getSession().getAttribute("idUsuario");
+		Usuario usuario = servicioUsuario.buscarUsuarioXIdSERVICE(idUsuario);
+		
+		List<Actividad> listaActividades = servicioActividad.listarActividadesXUsuario(usuario);
+		Texto t = new Texto();
+		
+		ModelMap model = new ModelMap();
+		model.put("keyListaActividades", listaActividades);
+		model.put("textoModel", t);
+		
+		return new ModelAndView("homeUsuario",model);
+	}
+	
 	@RequestMapping(path = "/guardarComentario",method = RequestMethod.POST)
 	public ModelAndView guardarComentario(@ModelAttribute("textoModel") Texto text, HttpServletRequest request) {		
-
+		
 		int idUsuario = (int) request.getSession().getAttribute("idUsuario");
 		Usuario usuario = servicioUsuario.buscarUsuarioXIdSERVICE(idUsuario);
 		
@@ -36,23 +52,23 @@ public class ControladorUser {
 		
 		servicioUsuario.agregarTextoAUsuarioSERVICE(usuario, text);
 
-//		return new ModelAndView("redirect:/misActividades");
-		return new ModelAndView("homeUsuario");
+		return new ModelAndView("redirect:/mostrarUsuario");
+//		return new ModelAndView("homeUsuario");
 	}
-//	LISTA LAS ACTIVIDADES DEL USUARIO
-	@RequestMapping(path="/misActividades")
-	public ModelAndView actividadesXUsuario(HttpServletRequest request){
-		
-		int idUsuario = (int) request.getSession().getAttribute("idUsuario");
-		Usuario usuario = servicioUsuario.buscarUsuarioXIdSERVICE(idUsuario);
-		
-		List<Actividad> listaActividades = servicioActividad.listarActividadesXUsuario(usuario);
-		
-		ModelMap model = new ModelMap();
-		model.put("keyListaActividades", listaActividades);
-		
-		return new ModelAndView("misActividades",model);
-	}
+
+//	@RequestMapping(path="/guardarComentario",method = RequestMethod.GET)
+//	public ModelAndView actividadesXUsuario(HttpServletRequest request){
+//		
+//		int idUsuario = (int) request.getSession().getAttribute("idUsuario");
+//		Usuario usuario = servicioUsuario.buscarUsuarioXIdSERVICE(idUsuario);
+//		
+//		List<Actividad> listaActividades = servicioActividad.listarActividadesXUsuario(usuario);
+//		
+//		ModelMap model = new ModelMap();
+//		model.put("keyListaActividades", listaActividades);
+//		
+//		return new ModelAndView("redirect:/guardarComentario",model);
+//	}
 	
 
 
