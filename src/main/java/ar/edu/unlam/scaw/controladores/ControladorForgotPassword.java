@@ -57,7 +57,7 @@ public class ControladorForgotPassword {
 		
 		if(!usuarios.isEmpty()) {
 			
-			String randomCharacters = randomString(6);
+			String randomCharacters = randomString(12);
 			String hashedPassword = DigestUtils.md5Hex(randomCharacters);
 			
 			usuarios.get(0).setPassword(randomCharacters);

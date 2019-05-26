@@ -45,17 +45,17 @@
             <div class="row">
               <div class="col-md-6">
                 <div class="form-group"> <label>Nick</label>
-                  <form:input path="nickname" type="text" class="form-control"  /> </div>
+                  <form:input path="nickname" type="text" class="form-control" required="required" /> </div>
               </div>
               <div class="col-md-6">
                 <div class="form-group"> <label>Email</label>
-                  <form:input path="email" type="email" class="form-control" /> </div>
+                  <form:input path="email" type="email" class="form-control" required="required"/> </div>
               </div>
             </div>
             <div class="row">
               <div class="col-md-6">
                 <div class="form-group"> <label>Contraseña</label>
-                  <form:input path="password" type="password" class="form-control"  /> </div>
+                  <form:input path="password" type="password" class="form-control" required="required" pattern=".{12,}" title="La contraseña debe tener al menos 12 caracteres"/> </div>
               </div>
               <!--div class="col-md-6">
                 <div class="form-group"> <label>Confirmar contraseña</label>
@@ -65,11 +65,11 @@
             <div class="row">
               <div class="col-md-6">
                 <div class="form-group"> <label>Nombre</label>
-                  <form:input path="nombre" type="text" class="form-control"  /> </div>
+                  <form:input path="nombre" type="text" class="form-control" required="required" /> </div>
               </div>
               <div class="col-md-6">
                 <div class="form-group"> <label>Apellido</label>
-                  <form:input path="apellido" type="text" class="form-control" /> </div>
+                  <form:input path="apellido" type="text" class="form-control" required="required" /> </div>
               </div>
             </div>
             <div class="row">

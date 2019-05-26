@@ -10,15 +10,15 @@
 	        <form:form action="resetPassword" modelAttribute="usuario" method="POST">
 	        	<div class="form-group row">
 					  <label class="col-lg-6 control-label">Email:</label>
-					  	<form:input class="form-control col-lg-6" path="email" type="email" />
+					  	<form:input class="form-control col-lg-6" path="email" type="email" required="required"/>
 				  </div>	
 				  <div class="form-group row">
 					  <label class="col-lg-6 control-label">Contraseña actual:</label>
-					  	<form:input class="form-control col-lg-6" path="password" type="password" />
+					  	<form:input class="form-control col-lg-6" path="password" type="password" required="required"/>
 				  </div>  
 				  <div class="form-group row">
 					  <label class="col-lg-6 control-label">Contraseña nueva:</label>
-					  	<input class="form-control col-lg-6" type="password" id="password_new" name="newPassword"/>
+					  	<input class="form-control col-lg-6" type="password" id="password_new" name="newPassword" pattern=".{12,}" required title="La nueva contraseña debe tener al menos 12 caracteres"/>
 				  </div>
 				  <div class="form-group row">
 			  		  <div class="col-lg-2"></div>
