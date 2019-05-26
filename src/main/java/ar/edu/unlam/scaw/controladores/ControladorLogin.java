@@ -82,7 +82,10 @@ public class ControladorLogin {
 			
 		} else {
 			// si el usuario no existe agrega un mensaje de error en el modelo.
+			Usuario u = new Usuario();
 			model.put("error", "Usuario o clave incorrecta");
+			model.put("usuario",u);
+			
 		}
 		return new ModelAndView("login", model);
 	}
