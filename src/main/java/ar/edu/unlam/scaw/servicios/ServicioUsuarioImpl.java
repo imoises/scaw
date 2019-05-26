@@ -43,14 +43,15 @@ public class ServicioUsuarioImpl implements ServicioUsuario{
 	public boolean registrarUsuario(Usuario usuario) {
 		Usuario usuarioExistente = servicioUsuarioDao.buscarUsuarioPorEmail(usuario.getEmail());
 		if(usuarioExistente == null) {
-			Usuario usuarioNuevo = usuario;
-			usuarioNuevo.setRol("usuario");
-			usuarioNuevo.setEstado("deshabilitado");
-			servicioUsuarioDao.insertUsuario(usuarioNuevo);
-			return true;
-		}else {
-			return false;
+			if(!servicioUsuarioDao.existeUsername(usuario)) {
+				Usuario usuarioNuevo = usuario;
+				usuarioNuevo.setRol("usuario");
+				usuarioNuevo.setEstado("deshabilitado");
+				servicioUsuarioDao.insertUsuario(usuarioNuevo);
+				return true;
+			}
 		}
+		return false;
 	}
 	
 	@Override

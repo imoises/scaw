@@ -22,7 +22,9 @@ public interface UsuarioDao {
 	public Usuario buscarUsuarioPorEmail(String email);
 	
 	public Usuario consultarUsuarioPorEmailYPassword(Usuario usuario);
-	
+
 	void updateUsuario(Usuario usuario);
+	
+	public boolean existeUsername(Usuario usuario);
 
 }

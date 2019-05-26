@@ -35,9 +35,11 @@ public class ControladorRegistrarse {
 		modelo.put("usuario", usuario);
 
 		if(servicioUsuario.registrarUsuario(usuario)) {
-			return new ModelAndView("redirect:/login");
+			modelo.put("msgRegistrarExito", "Se ha registrado el usuario con éxito. Espere a que un administrador habilite su cuenta.");
+			return new ModelAndView("/login", modelo);
 		}
-		
+
+		modelo.put("msgRegistrarError", "No se ha podido completar el registo correctamente. El usuario o email ya se encuentran registrados.");
 		return new ModelAndView("/login", modelo);
 	}
 	

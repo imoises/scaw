@@ -34,6 +34,11 @@
   </div-->
   
   <!-- Parallax section -->
+  
+
+  
+  
+  
   <div class="py-5 photo-overlay section-parallax" id="book" style="background-image: url(&quot;assets/restaurant/makereservation_light.jpg&quot;);">
     <div class="container">
       <div class="row my-5">
@@ -71,10 +76,28 @@
                   <form:input path="apellido" type="text" class="form-control" required="required" /> </div>
               </div>
             </div>
+            <c:if test="${not empty msgRegistrarExito || not empty msgRegistrarError }">
+				<script type="text/javascript">
+				window.onload = function () {
+					    // Handler for .ready() called.
+					    $('html, body').animate({
+					        scrollTop: $('#book').offset().top
+					    }, 'slow');
+					};
+				</script>
+				<c:if test="${not empty msgRegistrarExito}">
+					<p style="color: green;">${msgRegistrarExito}</p>
+				</c:if>
+				<c:if test="${not empty msgRegistrarError}">
+					<p style="color: red;">${msgRegistrarError}</p>
+				</c:if>
+			</c:if>
             <div class="row">
               <div class="col-md-12"><button type="submit" class="btn mt-4 btn-block btn-primary p-2" ><b >Registarse</b></button></div>
             </div>
           </form:form>
+          
+          
         </div>
       </div>
     </div>

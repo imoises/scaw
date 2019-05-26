@@ -113,7 +113,18 @@ public class UsuarioDaoImpl implements UsuarioDao {
 		Session session = sessionFactory.getCurrentSession();
 		return session.get(Usuario.class, id);
 	}
+	
 
+	@Override
+	public boolean existeUsername(Usuario usuario) {
+
+		final Session session = sessionFactory.getCurrentSession();
+		Usuario usuarioEncontrado = (Usuario) session.createCriteria(Usuario.class)
+				.add(Restrictions.eq("nickname", usuario.getNickname()))
+				.uniqueResult();
+		return (usuarioEncontrado != null);
+	}
+	
 	
 
 }
