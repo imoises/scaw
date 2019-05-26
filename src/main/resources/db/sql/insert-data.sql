@@ -18,7 +18,18 @@ INSERT INTO USUARIO(NICKNAME, NOMBRE, APELLIDO, EMAIL, PASSWORD, ROL, ESTADO  ) 
 ---------------------------------------------------------------------   
 --             TABLA ACTIVIDADES DE LOS USUARIOS                   --
 --------------------------------------------------------------------- 
-INSERT INTO ACTIVIDAD (DESCRIPCION, FECHA, ID_USUARIO)VALUES ('Se loguea',  timestamp '2017-10-12 21:22:23',2);
+INSERT INTO ACTIVIDAD (DESCRIPCION, FECHA, ID_USUARIO)VALUES ('Inicia sesión',  timestamp '2019-05-25 21:22:23',2);
+INSERT INTO ACTIVIDAD (DESCRIPCION, FECHA, ID_USUARIO)VALUES ('Guarda texto',  timestamp '2019-05-25 21:22:34',2);
+INSERT INTO ACTIVIDAD (DESCRIPCION, FECHA, ID_USUARIO)VALUES ('Cierra sesión',  timestamp '2019-05-25 21:22:58',2);
+INSERT INTO ACTIVIDAD (DESCRIPCION, FECHA, ID_USUARIO)VALUES ('Inicia sesión',  timestamp '2019-05-26 11:09:02',2);
+INSERT INTO ACTIVIDAD (DESCRIPCION, FECHA, ID_USUARIO)VALUES ('Guarda texto',  timestamp '2019-05-26 11:09:19',2);
+INSERT INTO ACTIVIDAD (DESCRIPCION, FECHA, ID_USUARIO)VALUES ('Guarda texto',  timestamp '2019-05-26 11:09:40',2);
+INSERT INTO ACTIVIDAD (DESCRIPCION, FECHA, ID_USUARIO)VALUES ('Guarda texto',  timestamp '2019-05-26 11:10:05',2);
+INSERT INTO ACTIVIDAD (DESCRIPCION, FECHA, ID_USUARIO)VALUES ('Cierra sesión',  timestamp '2019-05-26 11:10:25',2);
+INSERT INTO ACTIVIDAD (DESCRIPCION, FECHA, ID_USUARIO)VALUES ('Inicia sesión',  timestamp '2019-05-20 14:36:48',3);
+INSERT INTO ACTIVIDAD (DESCRIPCION, FECHA, ID_USUARIO)VALUES ('Guarda texto',  timestamp '2019-05-20 14:37:04',3);
+INSERT INTO ACTIVIDAD (DESCRIPCION, FECHA, ID_USUARIO)VALUES ('Guarda texto',  timestamp '2019-05-20 14:37:35',3);
+INSERT INTO ACTIVIDAD (DESCRIPCION, FECHA, ID_USUARIO)VALUES ('Cierra sesión',  timestamp '2019-05-20 14:37:58',3);
 
 ---------------------------------------------------------------------   
 --             TABLA TEXTOS DE LOS USUARIOS                       --
