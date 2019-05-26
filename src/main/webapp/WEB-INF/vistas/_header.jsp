@@ -14,11 +14,11 @@
   <meta name="keywords" content="Pingendo restaurant food aquamarine free template bootstrap 4">
   <!-- CSS dependencies -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css">
-  <link rel="stylesheet" href="css/aquamarine.css" type="text/css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/css/aquamarine.css" type="text/css">
   <!-- Script: Make my navbar transparent when the document is scrolled to top -->
-  <script src="js/navbar-ontop.js"></script>
+  <script src="${pageContext.request.contextPath}/js/navbar-ontop.js"></script>
   <!-- Script: Animated entrance -->
-  <script src="js/animate-in.js"></script>
+  <script src="${pageContext.request.contextPath}/js/animate-in.js"></script>
 </head>
 
 <body>

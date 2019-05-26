@@ -67,14 +67,25 @@ public class ControladorAdmin {
 	
 	@RequestMapping(path = "/actividad-usuario/{idUsuario}", method = RequestMethod.GET)
 	public ModelAndView irAActividadUsuario(@PathVariable int idUsuario) {
-
-		ModelMap modelo = new ModelMap();
-		Usuario usuario = servicioUsuario.buscarUsuarioXIdSERVICE(idUsuario);
-		List<Actividad> actividades = servicioActividad.listarActividadesXUsuario(usuario);
 		
-		modelo.put("actividades", actividades);
+		ModelMap modelo = new ModelMap();
 
-		return new ModelAndView("verActividades", modelo);
+		try{
+			Usuario usuario = servicioUsuario.buscarUsuarioXIdSERVICE(idUsuario);
+			
+			List<Actividad> actividades = servicioActividad.listarActividadesXUsuario(usuario);
+			if(actividades.size() == 0) {
+				modelo.put("error", "El usuario aún no registra actividades.");
+				return new ModelAndView("verActividades", modelo);
+			}
+			modelo.put("actividades", actividades);
+			return new ModelAndView("verActividades", modelo);
+		
+		}
+		catch(Exception e){
+			modelo.put("error", "El usuario no existe.");
+			return new ModelAndView("verActividades", modelo);
+		}
 	}
 	
 
