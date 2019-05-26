@@ -44,10 +44,11 @@ public class UsuarioDaoImpl implements UsuarioDao {
 	
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Usuario> buscarUsuarioPorEmail(Usuario usuario) {
-		return (sessionFactory.getCurrentSession().createCriteria(Usuario.class)
-				.add(Restrictions.eq("email", usuario.getEmail()))
-				.list());
+	public Usuario buscarUsuarioPorEmail(String email) {
+		final Session session = sessionFactory.getCurrentSession();
+		return (Usuario) session.createCriteria(Usuario.class)
+				.add(Restrictions.eq("email", email))
+				.uniqueResult();
 	}
 	
 	@Override

@@ -40,13 +40,13 @@ public class ServicioUsuarioImpl implements ServicioUsuario{
 	}
 	
 	@Override
-	public boolean agregarUsuario(Usuario usuario) {
-		List<Usuario> miUsuario = servicioUsuarioDao.buscarUsuarioPorEmail(usuario);
-		if(miUsuario.size() == 0) {
-			Usuario userpro = usuario;
-			userpro.setRol("usuario");
-			userpro.setEstado("deshabilitado");
-			servicioUsuarioDao.insertUsuario(userpro);
+	public boolean registrarUsuario(Usuario usuario) {
+		Usuario usuarioExistente = servicioUsuarioDao.buscarUsuarioPorEmail(usuario.getEmail());
+		if(usuarioExistente == null) {
+			Usuario usuarioNuevo = usuario;
+			usuarioNuevo.setRol("usuario");
+			usuarioNuevo.setEstado("deshabilitado");
+			servicioUsuarioDao.insertUsuario(usuarioNuevo);
 			return true;
 		}else {
 			return false;
@@ -65,8 +65,8 @@ public class ServicioUsuarioImpl implements ServicioUsuario{
 	}
 	
 	@Override
-	public List<Usuario> buscarUsuarioPorEmail(Usuario usuario) {
-		return servicioUsuarioDao.buscarUsuarioPorEmail(usuario);
+	public Usuario buscarUsuarioPorEmail(String email) {
+		return servicioUsuarioDao.buscarUsuarioPorEmail(email);
 	}
 	
 	@Override

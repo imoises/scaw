@@ -19,7 +19,7 @@ public interface UsuarioDao {
 
 	void insertUsuario(Usuario usuario);
 	
-	List<Usuario> buscarUsuarioPorEmail(Usuario usuario);
+	public Usuario buscarUsuarioPorEmail(String email);
 	
 	public Usuario consultarUsuarioPorEmailYPassword(Usuario usuario);
 	

@@ -39,9 +39,9 @@
     <div class="container">
       <div class="row my-5">
         <div class="col-lg-11 mx-auto p-3 animate-in-down" style="">
-          <form:form action="registrarusuario" modelAttribute="usuario" method="POST">
+          <form:form action="registrarUsuario" modelAttribute="usuario" method="POST">
             <h4 class="mb-4 text-center">Registarse</h4>
-            <p class="my-4" contenteditable="true">Bienvenidos a la aplicación! Complete el formulario con sus datos y las preguntas para la recuperacion de su contraseña.</p>
+            <p class="my-4" contenteditable="true">Bienvenidos a la aplicación! Complete el formulario con sus datos para crear una cuenta nueva.</p>
             <div class="row">
               <div class="col-md-6">
                 <div class="form-group"> <label>Nick</label>
@@ -73,8 +73,7 @@
               </div>
             </div>
             <div class="row">
-              <div class="col-md-12"></div>
-              <div class="col-md-12"><button type="submit" class="btn mt-4 btn-block btn-primary p-2" style=""  formaction="registrarusuario"><b class="">Registarse</b></button></div>
+              <div class="col-md-12"><button type="submit" class="btn mt-4 btn-block btn-primary p-2" ><b >Registarse</b></button></div>
             </div>
           </form:form>
         </div>

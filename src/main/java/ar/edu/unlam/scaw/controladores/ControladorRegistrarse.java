@@ -28,13 +28,13 @@ public class ControladorRegistrarse {
 		return new ModelAndView("login", modelo);
 	}
 	
-	@RequestMapping(path = "/registrarusuario", method = RequestMethod.POST)
-	public ModelAndView registrarUsuario(@ModelAttribute("usuario") Usuario agregarusuario) {
+	@RequestMapping(path = "/registrarUsuario", method = RequestMethod.POST)
+	public ModelAndView registrarUsuario(@ModelAttribute("usuario") Usuario usuario) {
 		ModelMap modelo = new ModelMap();
-		Usuario usuario = new Usuario();
+		//Usuario usuario = new Usuario();
 		modelo.put("usuario", usuario);
 
-		if(servicioUsuario.agregarUsuario(agregarusuario)) {
+		if(servicioUsuario.registrarUsuario(usuario)) {
 			return new ModelAndView("redirect:/login");
 		}
 		
