@@ -12,15 +12,20 @@
             <h4 class="mb-4 text-center">Login</h4>
             <div class="form-group"> <label>Nick</label>
               <form:input path="nickname" id="nickname" type="text" class="form-control" /> </div>
-            <div class="row">
-            </div>
+            
             <div class="form-group"> <label>Contraseña</label>
               <form:input path="password" type="password" id="password" class="form-control" /> </div>
+            
+             <div class="g-recaptcha" data-sitekey="6LcElaUUAAAAAOZxPrHTkfaFYnyAxT8rItmCWPhl"></div>
+            
+ 
+            
             <button type="submit" class="btn mt-4 btn-block p-2 btn-primary"><b>Ingresar</b></button>
           </form:form>
 		  <%--Bloque que es visible si el elemento error no estÃƒÂ¡ vacÃƒÂ­o	--%>
 		  <c:if test="${not empty error}">
-			<h4><span>${error}</span></h4>
+			<h4><span><p style="color:red;">${error}</p></span></h4>
+			
 			<br>
 		  </c:if>	
 		  <div class="col-md-12 text-center"><a class="btn btn-link text-light text-right" href="reset_password">Cambiar contraseña</a></div>
@@ -39,9 +44,9 @@
     <div class="container">
       <div class="row my-5">
         <div class="col-lg-11 mx-auto p-3 animate-in-down" style="">
-          <form:form action="registrarusuario" modelAttribute="usuario" method="POST">
+          <form:form action="registrarUsuario" modelAttribute="usuario" method="POST">
             <h4 class="mb-4 text-center">Registarse</h4>
-            <p class="my-4" contenteditable="true">Bienvenidos a la aplicación! Complete el formulario con sus datos y las preguntas para la recuperacion de su contraseña.</p>
+            <p class="my-4" contenteditable="true">Bienvenidos a la aplicación! Complete el formulario con sus datos para crear una cuenta nueva.</p>
             <div class="row">
               <div class="col-md-6">
                 <div class="form-group"> <label>Nick</label>

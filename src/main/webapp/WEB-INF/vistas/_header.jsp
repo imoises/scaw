@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+
 <!DOCTYPE html>
 <html>
 
@@ -19,6 +21,7 @@
   <script src="${pageContext.request.contextPath}/js/navbar-ontop.js"></script>
   <!-- Script: Animated entrance -->
   <script src="${pageContext.request.contextPath}/js/animate-in.js"></script>
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 
 <body>
