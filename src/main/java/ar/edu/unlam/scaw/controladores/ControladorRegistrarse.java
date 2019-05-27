@@ -28,16 +28,18 @@ public class ControladorRegistrarse {
 		return new ModelAndView("login", modelo);
 	}
 	
-	@RequestMapping(path = "/registrarusuario", method = RequestMethod.POST)
-	public ModelAndView registrarUsuario(@ModelAttribute("usuario") Usuario agregarusuario) {
+	@RequestMapping(path = "/registrarUsuario", method = RequestMethod.POST)
+	public ModelAndView registrarUsuario(@ModelAttribute("usuario") Usuario usuario) {
 		ModelMap modelo = new ModelMap();
-		Usuario usuario = new Usuario();
+		//Usuario usuario = new Usuario();
 		modelo.put("usuario", usuario);
 
-		if(servicioUsuario.agregarUsuario(agregarusuario)) {
-			return new ModelAndView("redirect:/login");
+		if(servicioUsuario.registrarUsuario(usuario)) {
+			modelo.put("msgRegistrarExito", "Se ha registrado el usuario con éxito. Espere a que un administrador habilite su cuenta.");
+			return new ModelAndView("/login", modelo);
 		}
-		
+
+		modelo.put("msgRegistrarError", "No se ha podido completar el registo correctamente. El usuario o email ya se encuentran registrados.");
 		return new ModelAndView("/login", modelo);
 	}
 	

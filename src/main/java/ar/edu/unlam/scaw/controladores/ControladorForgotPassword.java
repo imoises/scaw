@@ -53,21 +53,21 @@ public class ControladorForgotPassword {
 			return new ModelAndView("forgotPassword", modelo);
 		}
 		
-		List<Usuario> usuarios = servicioUsuario.buscarUsuarioPorEmail(forgotPassword);
+		Usuario usuario = servicioUsuario.buscarUsuarioPorEmail(forgotPassword.getEmail());
 		
-		if(!usuarios.isEmpty()) {
+		if(usuario != null) {
 			
 			String randomCharacters = randomString(12);
-			String hashedPassword = DigestUtils.md5Hex(randomCharacters);
+			String hashedPassword = DigestUtils.md5Hex(randomCharacters); // Ver esto
 			
-			usuarios.get(0).setPassword(randomCharacters);
+			usuario.setPassword(randomCharacters);
 			
-			String destinatario =  usuarios.get(0).getEmail();
+			String destinatario =  usuario.getEmail();
 		    String asunto = "Recupero de contraseña";
-		    String cuerpo = "Nueva contraseña: "+randomCharacters;
+		    String cuerpo = "Nueva contraseña: " + randomCharacters;
 			String value = servicioUsuario.envioEmail(destinatario, asunto, cuerpo);
 			
-			servicioUsuario.updateUsuario(usuarios.get(0));
+			servicioUsuario.updateUsuario(usuario);
 			modelo.put("msg", value);
 
 		}else {

@@ -29,10 +29,10 @@ public class ControladorUser {
 	ServicioActividad servicioActividad;
 	
 	@RequestMapping(path="/mostrarUsuario",method = { RequestMethod.POST, RequestMethod.GET })
-	public ModelAndView mostrarUsuario(@ModelAttribute("usuario") Usuario usuario,HttpServletRequest request){
+	public ModelAndView mostrarUsuario(@ModelAttribute("usuario") Usuario user,HttpServletRequest request){
 		
-//		int idUsuario = (int) request.getSession().getAttribute("idUsuario");
-//		Usuario usuario = servicioUsuario.buscarUsuarioXIdSERVICE(idUsuario);
+		int idUsuario = (int) request.getSession().getAttribute("idUsuario");
+		Usuario usuario = servicioUsuario.buscarUsuarioXIdSERVICE(idUsuario);
 		
 		List<Actividad> listaActividades = servicioActividad.listarActividadesXUsuario(usuario);
 		Texto t = new Texto();

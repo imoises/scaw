@@ -15,6 +15,13 @@ INSERT INTO USUARIO(NICKNAME, NOMBRE, APELLIDO, EMAIL, PASSWORD, ROL, ESTADO  ) 
 -- la pass para user6 es 123
 INSERT INTO USUARIO(NICKNAME, NOMBRE, APELLIDO, EMAIL, PASSWORD, ROL, ESTADO  ) VALUES  ('user7','Tomas','Gomez','tomas@email.com','202cb962ac59075b964b07152d234b70','admin','habilitado');
 -- la pass para user7 es 123
+INSERT INTO USUARIO(NICKNAME, NOMBRE, APELLIDO, EMAIL, PASSWORD, ROL, ESTADO  ) VALUES  ('root','','','root','','bloqueado','bloqueado');
+-- la pass para user1 es 123 
+INSERT INTO USUARIO(NICKNAME, NOMBRE, APELLIDO, EMAIL, PASSWORD, ROL, ESTADO  ) VALUES  ('admin','','','admin','','bloqueado','bloqueado');
+-- la pass para user1 es 123 
+INSERT INTO USUARIO(NICKNAME, NOMBRE, APELLIDO, EMAIL, PASSWORD, ROL, ESTADO  ) VALUES  ('sa','','','sa','','bloqueado','bloqueado');
+-- la pass para user1 es 123 
+
 ---------------------------------------------------------------------   
 --             TABLA ACTIVIDADES DE LOS USUARIOS                   --
 --------------------------------------------------------------------- 

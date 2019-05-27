@@ -44,10 +44,11 @@ public class UsuarioDaoImpl implements UsuarioDao {
 	
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Usuario> buscarUsuarioPorEmail(Usuario usuario) {
-		return (sessionFactory.getCurrentSession().createCriteria(Usuario.class)
-				.add(Restrictions.eq("email", usuario.getEmail()))
-				.list());
+	public Usuario buscarUsuarioPorEmail(String email) {
+		final Session session = sessionFactory.getCurrentSession();
+		return (Usuario) session.createCriteria(Usuario.class)
+				.add(Restrictions.eq("email", email))
+				.uniqueResult();
 	}
 	
 	@Override
@@ -112,7 +113,18 @@ public class UsuarioDaoImpl implements UsuarioDao {
 		Session session = sessionFactory.getCurrentSession();
 		return session.get(Usuario.class, id);
 	}
+	
 
+	@Override
+	public boolean existeUsername(Usuario usuario) {
+
+		final Session session = sessionFactory.getCurrentSession();
+		Usuario usuarioEncontrado = (Usuario) session.createCriteria(Usuario.class)
+				.add(Restrictions.eq("nickname", usuario.getNickname()))
+				.uniqueResult();
+		return (usuarioEncontrado != null);
+	}
+	
 	
 
 }

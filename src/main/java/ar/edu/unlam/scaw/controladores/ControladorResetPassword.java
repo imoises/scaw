@@ -15,6 +15,7 @@ import ar.edu.unlam.scaw.servicios.ServicioUsuario;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class ControladorResetPassword 
@@ -33,13 +34,16 @@ public class ControladorResetPassword
 	}
 	
 	@RequestMapping(path = "/resetPassword", method = RequestMethod.POST)
-	public ModelAndView resetPassword(@ModelAttribute("usuario") Usuario resetPassword, @RequestParam("newPassword") String newPassword) {
+	public ModelAndView resetPassword(@ModelAttribute("usuario") Usuario resetPassword, @RequestParam("newPassword") String newPassword, HttpServletRequest request) {
 		ModelMap modelo = new ModelMap();
 		
-		if(resetPassword.getEmail() == "" || resetPassword.getPassword() == "" || newPassword == "") {
+		if(resetPassword.getPassword() == "" || newPassword == "") {
 			modelo.put("msg", "Debes rellenar los campos.");
-			return new ModelAndView("resetPassword", modelo);
+			return new ModelAndView("redirect:/mostrarUsuario", modelo);
 		}
+
+		String email = (String) request.getSession().getAttribute("email");
+		resetPassword.setEmail(email);
 		
 		Usuario usuario = servicioUsuario.consultarUsuarioPorEmailYPassword(resetPassword);
 		String hashedPassword = DigestUtils.md5Hex(newPassword);
@@ -50,16 +54,16 @@ public class ControladorResetPassword
 			{
 				usuario.setPassword(newPassword);
 				servicioUsuario.updateUsuario(usuario);
-				modelo.put("msg", "Contraseña cambiada correctamente.");
+				request.getSession().setAttribute("msg",  "Contraseña actualizada correctamente.");
 				
 			}else {
-				modelo.put("msg", "La contraseña no pueden ser las mismas.");
+				request.getSession().setAttribute("msg",  "La contraseña nueva debe ser diferente que la anterior.");
 			}
 				
 		}else {
-			modelo.put("msg", "Los datos ingresados son incorrectos.");
+			request.getSession().setAttribute("msg",  "Los datos ingresados son incorrectos.");
 		}
 		
-		return new ModelAndView("resetPassword", modelo);
+		return new ModelAndView("redirect:/mostrarUsuario", modelo);
 	}
 }

@@ -101,7 +101,7 @@ public class ControladorLogin {
 							return new ModelAndView("deshabilitado", model);
 						}
 						if (usuarioBuscado.getEstado().equals("habilitado")) {
-							return new ModelAndView("redirect:/mostrarUsuario");
+							return new ModelAndView("redirect:/mostrarUsuario",model);
 						}
 						
 					}
