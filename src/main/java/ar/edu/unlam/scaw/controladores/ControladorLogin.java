@@ -1,11 +1,10 @@
 package ar.edu.unlam.scaw.controladores;
 
 import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -15,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import ar.edu.unlam.scaw.modelo.Actividad;
-import ar.edu.unlam.scaw.modelo.Texto;
 import ar.edu.unlam.scaw.modelo.Usuario;
+import ar.edu.unlam.scaw.recaptcha.VerifyUtils;
 import ar.edu.unlam.scaw.servicios.ServicioActividad;
 import ar.edu.unlam.scaw.servicios.ServicioLogin;
 
@@ -51,42 +50,80 @@ public class ControladorLogin {
 	// El método recibe un objeto Usuario el que tiene los datos ingresados en el form correspondiente y se corresponde con el modelAttribute definido en el
 	// tag form:form
 	@RequestMapping(path = "/validar-login", method = RequestMethod.POST)
-	public ModelAndView validarLogin(@ModelAttribute("usuario") Usuario usuario, HttpServletRequest request) {
+	public ModelAndView validarLogin(@ModelAttribute("usuario") Usuario usuario, HttpServletRequest request,HttpServletResponse response) {
 		ModelMap model = new ModelMap();
-
-		// invoca el metodo consultarUsuario del servicio y hace un redirect a la URL /home, esto es, en lugar de enviar a una vista
-		// hace una llamada a otro action a través de la URL correspondiente a ésta
-
-		Usuario usuarioBuscado = servicioLogin.consultarUsuario(usuario);
-		if (usuarioBuscado != null) {
-			Actividad a = new Actividad();
-			
-			a.setDescripcion(LOGEADO);
-			a.setFecha(new Timestamp(System.currentTimeMillis()));
-			a.setUsuario(usuarioBuscado);
-			
-			servicioActividad.registarActividad(a);
-			
-			request.getSession().setAttribute("rol", usuarioBuscado.getRol());
-			request.getSession().setAttribute("idUsuario", usuarioBuscado.getId());
-			
-			if (usuarioBuscado.getRol().equals("admin")) {
-				return new ModelAndView("redirect:/administrar");
-			}else{
-				if (usuarioBuscado.getEstado().equals("deshabilitado")) {
-					return new ModelAndView("deshabilitado");
-				}
-				return new ModelAndView("redirect:/mostrarUsuario");
-//				return new ModelAndView("homeUsuario");
-			}
-			
-		} else {
-			// si el usuario no existe agrega un mensaje de error en el modelo.
-			Usuario u = new Usuario();
-			model.put("error", "Usuario o clave incorrecta");
+		
+		boolean valid = true;
+	    String errorString = null;
+	    
+	    if(usuario.getNickname().isEmpty() || usuario.getPassword().isEmpty()){
+	    	valid = false; 
+	    	errorString = "El nick y contrase�a son requeridos!";
+	    	Usuario u = new Usuario();
+			model.put("error", errorString);
 			model.put("usuario",u);
+	    }
+	    
+	    if (valid) {
+	    	 
+	         String gRecaptchaResponse = request.getParameter("g-recaptcha-response");
+	 
+	         System.out.println("gRecaptchaResponse=" + gRecaptchaResponse);
+	 
+	         // Verify CAPTCHA.
+	         valid = VerifyUtils.verify(gRecaptchaResponse);
+	         if (!valid) {
+	             errorString = "Captcha invalid!";
+	             Usuario u = new Usuario();
+	 			 model.put("error", errorString);
+	 			 model.put("usuario",u);
+	         }else{
+	         
+	            Usuario usuarioBuscado = servicioLogin.consultarUsuario(usuario);
+				if (usuarioBuscado != null) {
+					Actividad a = new Actividad();
+					
+					a.setDescripcion(LOGEADO);
+					a.setFecha(new Timestamp(System.currentTimeMillis()));
+					a.setUsuario(usuarioBuscado);
+					
+					servicioActividad.registarActividad(a);
+					
+					request.getSession().setAttribute("rol", usuarioBuscado.getRol());
+					request.getSession().setAttribute("idUsuario", usuarioBuscado.getId());
+					request.getSession().setAttribute("email", usuarioBuscado.getEmail());
+					
+					model.put("usuario", usuarioBuscado);
+					if (usuarioBuscado.getRol().equals("admin")) {
+						return new ModelAndView("redirect:/administrar",model);
+					}else{
+						if (usuarioBuscado.getEstado().equals("deshabilitado")) {
+							return new ModelAndView("deshabilitado", model);
+						}
+						if (usuarioBuscado.getEstado().equals("habilitado")) {
+							return new ModelAndView("redirect:/mostrarUsuario");
+						}
+						
+					}
+					
+				} else {
+					// si el usuario no existe agrega un mensaje de error en el modelo.
+					
+					valid = false; 
+			    	errorString = "Usuario o clave incorrecta!";
+			    	Usuario u = new Usuario();
+					model.put("error", errorString);
+					model.put("usuario",u);
+					
+				}
+	         }
+	     }
+	    
+	    
 			
-		}
+			
+		
+	    
 		return new ModelAndView("login", model);
 	}
 
