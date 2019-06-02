@@ -106,7 +106,8 @@ public class ServicioUsuarioImpl implements ServicioUsuario{
 	        logger.error(me);
 	        return "Error en el envio.";
 	    }
-	    
+
+        logger.info("Envio de email correcto");
 		return "La nueva contraseña se envió correctamente!";
 	}
 
