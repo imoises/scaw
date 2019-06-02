@@ -1,6 +1,7 @@
 package ar.edu.unlam.scaw.controladores;
 
 import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -18,8 +19,9 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
-public class ControladorResetPassword 
-{
+public class ControladorResetPassword {
+	
+	public final static Logger logger = Logger.getLogger(ControladorResetPassword.class);
 	@Inject
 	private ServicioUsuario servicioUsuario;
 	
@@ -36,32 +38,36 @@ public class ControladorResetPassword
 	@RequestMapping(path = "/resetPassword", method = RequestMethod.POST)
 	public ModelAndView resetPassword(@ModelAttribute("usuario") Usuario resetPassword, @RequestParam("newPassword") String newPassword, HttpServletRequest request) {
 		ModelMap modelo = new ModelMap();
-		
-		if(resetPassword.getPassword() == "" || newPassword == "") {
-			modelo.put("msg", "Debes rellenar los campos.");
-			return new ModelAndView("redirect:/mostrarUsuario", modelo);
-		}
-
-		String email = (String) request.getSession().getAttribute("email");
-		resetPassword.setEmail(email);
-		
-		Usuario usuario = servicioUsuario.consultarUsuarioPorEmailYPassword(resetPassword);
-		String hashedPassword = DigestUtils.md5Hex(newPassword);
-		
-		if(usuario != null) {
-			
-			if(!hashedPassword.equals(usuario.getPassword())) 
-			{
-				usuario.setPassword(newPassword);
-				servicioUsuario.updateUsuario(usuario);
-				request.getSession().setAttribute("msg",  "Contraseña actualizada correctamente.");
-				
-			}else {
-				request.getSession().setAttribute("msg",  "La contraseña nueva debe ser diferente que la anterior.");
+		try{
+			if(resetPassword.getPassword() == "" || newPassword == "") {
+				modelo.put("msg", "Debes rellenar los campos.");
+				return new ModelAndView("redirect:/mostrarUsuario", modelo);
 			}
+	
+			String email = (String) request.getSession().getAttribute("email");
+			resetPassword.setEmail(email);
+			
+			Usuario usuario = servicioUsuario.consultarUsuarioPorEmailYPassword(resetPassword);
+			String hashedPassword = DigestUtils.md5Hex(newPassword);
+			
+			if(usuario != null) {
 				
-		}else {
-			request.getSession().setAttribute("msg",  "Los datos ingresados son incorrectos.");
+				if(!hashedPassword.equals(usuario.getPassword())) 
+				{
+					usuario.setPassword(newPassword);
+					servicioUsuario.updateUsuario(usuario);
+					request.getSession().setAttribute("msg",  "Contraseña actualizada correctamente.");
+					
+				}else {
+					request.getSession().setAttribute("msg",  "La contraseña nueva debe ser diferente que la anterior.");
+				}
+					
+			}else {
+				request.getSession().setAttribute("msg",  "Los datos ingresados son incorrectos.");
+			}
+
+		}catch(Exception e){
+			logger.error("Error al reiniciar contraseña", e);
 		}
 		
 		return new ModelAndView("redirect:/mostrarUsuario", modelo);

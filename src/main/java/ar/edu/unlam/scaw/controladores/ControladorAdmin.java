@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,6 +20,7 @@ import ar.edu.unlam.scaw.servicios.ServicioUsuario;
 
 @Controller
 public class ControladorAdmin {
+	public final static Logger logger = Logger.getLogger(ControladorAdmin.class);
 
 	// La anotacion @Inject indica a Spring que en este atributo se debe setear (inyeccion de dependencias)
 	// un objeto de una clase que implemente la interface ServicioLogin, dicha clase debe estar anotada como
@@ -34,8 +36,13 @@ public class ControladorAdmin {
 	public ModelAndView irAAdministar() {
 
 		ModelMap modelo = new ModelMap();
-		List<Usuario> usuarios = servicioAdmin.consultarUsuarios();
-		modelo.put("usuarios", usuarios);
+		try {
+			List<Usuario> usuarios = servicioAdmin.consultarUsuarios();
+			modelo.put("usuarios", usuarios);
+			
+		}catch(Exception e){
+			logger.error("Error al consultar usuarios para administrar.", e);
+		}
 		return new ModelAndView("homeAdmin", modelo);
 	}
 
@@ -43,12 +50,15 @@ public class ControladorAdmin {
 	public ModelAndView irAHabilitarUsuario(@PathVariable int idUsuario) {
 
 		ModelMap modelo = new ModelMap();
+		try{
+			servicioAdmin.habilitarUsuario(idUsuario);
 		
-		servicioAdmin.habilitarUsuario(idUsuario);
-		
-		List<Usuario> usuarios = servicioAdmin.consultarUsuarios();
-		modelo.put("usuarios", usuarios);
+			List<Usuario> usuarios = servicioAdmin.consultarUsuarios();
+			modelo.put("usuarios", usuarios);
 
+		}catch(Exception e){
+			logger.error("Error al habilitar usuario.", e);
+		}
 		return new ModelAndView("redirect:/administrar", modelo);
 	}
 
@@ -56,12 +66,15 @@ public class ControladorAdmin {
 	public ModelAndView irADeshabilitarUsuario(@PathVariable int idUsuario) {
 
 		ModelMap modelo = new ModelMap();
-		
-		servicioAdmin.deshabilitarUsuario(idUsuario);
-		
-		List<Usuario> usuarios = servicioAdmin.consultarUsuarios();
-		modelo.put("usuarios", usuarios);
-
+		try{
+			servicioAdmin.deshabilitarUsuario(idUsuario);
+			
+			List<Usuario> usuarios = servicioAdmin.consultarUsuarios();
+			modelo.put("usuarios", usuarios);
+	
+		}catch(Exception e){
+			logger.error("Error al deshabilitar usuario.", e);
+		}
 		return new ModelAndView("redirect:/administrar", modelo);
 	}
 	
@@ -83,6 +96,7 @@ public class ControladorAdmin {
 		
 		}
 		catch(Exception e){
+			logger.error("Error: ", e);
 			modelo.put("error", "El usuario no existe.");
 			return new ModelAndView("verActividades", modelo);
 		}

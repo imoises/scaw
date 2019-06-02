@@ -10,9 +10,11 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import ar.edu.unlam.scaw.controladores.ControladorLogin;
 import ar.edu.unlam.scaw.dao.TextoDao;
 import ar.edu.unlam.scaw.dao.UsuarioDao;
 import ar.edu.unlam.scaw.modelo.Texto;
@@ -21,6 +23,8 @@ import ar.edu.unlam.scaw.modelo.Usuario;
 @Service("servicioUsuario")
 @Transactional
 public class ServicioUsuarioImpl implements ServicioUsuario{
+
+	public final static Logger logger = Logger.getLogger(ServicioUsuarioImpl.class);
 	
 	@Inject
 	private UsuarioDao servicioUsuarioDao;
@@ -73,6 +77,7 @@ public class ServicioUsuarioImpl implements ServicioUsuario{
 	@Override
 	public String envioEmail(String destinatario, String asunto, String cuerpo)
 	{
+        logger.info("Envio de email");
 		String remitente = "tallerwebtp";  
 		
 	    java.util.Properties props = System.getProperties();
@@ -98,6 +103,7 @@ public class ServicioUsuarioImpl implements ServicioUsuario{
 	    }
 	    catch (MessagingException me) {
 	        me.printStackTrace();   //Si se produce un error
+	        logger.error(me);
 	        return "Error en el envio.";
 	    }
 	    

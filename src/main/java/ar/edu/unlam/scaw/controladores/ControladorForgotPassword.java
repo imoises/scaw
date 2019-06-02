@@ -6,6 +6,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -19,6 +20,8 @@ import ar.edu.unlam.scaw.servicios.ServicioUsuario;
 
 @Controller
 public class ControladorForgotPassword {
+	
+	public final static Logger logger = Logger.getLogger(ControladorForgotPassword.class);
 	
 	@Inject
 	private ServicioUsuario servicioUsuario;
@@ -47,32 +50,39 @@ public class ControladorForgotPassword {
 	@RequestMapping(path = "/forgotPassword", method = RequestMethod.POST)
 	public ModelAndView resetPassword(@ModelAttribute("usuario") Usuario forgotPassword) {
 		ModelMap modelo = new ModelMap();
+		try{	
+			if(forgotPassword.getEmail() == "") {
+				modelo.put("msg", "Debes rellenar los campos.");
+				return new ModelAndView("forgotPassword", modelo);
+			}
+			
+			Usuario usuario = servicioUsuario.buscarUsuarioPorEmail(forgotPassword.getEmail());
+			
+			if(usuario != null) {
+				
+				String randomCharacters = randomString(12);
+				String hashedPassword = DigestUtils.md5Hex(randomCharacters); // Ver esto
+				
+				usuario.setPassword(randomCharacters);
+				
+				String destinatario =  usuario.getEmail();
+			    String asunto = "Recupero de contraseña";
+			    String cuerpo = "Nueva contraseña: " + randomCharacters;
+				String value = servicioUsuario.envioEmail(destinatario, asunto, cuerpo);
+				
+				servicioUsuario.updateUsuario(usuario);
+				modelo.put("msg", value);
+	
+			}else {
+				String msj = "Los datos ingresados son incorrectos.";
+				modelo.put("msg", msj);
+				logger.info(msj);
+			}
 		
-		if(forgotPassword.getEmail() == "") {
-			modelo.put("msg", "Debes rellenar los campos.");
-			return new ModelAndView("forgotPassword", modelo);
+		}catch(Exception e){
+			logger.error("Error en ForgotPassword", e);
 		}
 		
-		Usuario usuario = servicioUsuario.buscarUsuarioPorEmail(forgotPassword.getEmail());
-		
-		if(usuario != null) {
-			
-			String randomCharacters = randomString(12);
-			String hashedPassword = DigestUtils.md5Hex(randomCharacters); // Ver esto
-			
-			usuario.setPassword(randomCharacters);
-			
-			String destinatario =  usuario.getEmail();
-		    String asunto = "Recupero de contraseña";
-		    String cuerpo = "Nueva contraseña: " + randomCharacters;
-			String value = servicioUsuario.envioEmail(destinatario, asunto, cuerpo);
-			
-			servicioUsuario.updateUsuario(usuario);
-			modelo.put("msg", value);
-
-		}else {
-			modelo.put("msg", "Los datos ingresados son incorrectos.");
-		}
 		
 		return new ModelAndView("forgotPassword", modelo);
 	}

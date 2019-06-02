@@ -6,6 +6,8 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.BasicConfigurator;
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -21,7 +23,8 @@ import ar.edu.unlam.scaw.servicios.ServicioLogin;
 
 @Controller
 public class ControladorLogin {
-	public static final String LOGEADO = "El usuario se logeo en la aplicación";
+	public final static String LOGEADO = "El usuario se logeo en la aplicación";
+	public final static Logger logger = Logger.getLogger(ControladorLogin.class);
 	
 	// La anotacion @Inject indica a Spring que en este atributo se debe setear (inyeccion de dependencias)
 	// un objeto de una clase que implemente la interface ServicioLogin, dicha clase debe estar anotada como
@@ -37,12 +40,21 @@ public class ControladorLogin {
 	public ModelAndView irALogin() {
 
 		ModelMap modelo = new ModelMap();
+		try{
 		// Se agrega al modelo un objeto del tipo Usuario con key 'usuario' para que el mismo sea asociado
 		// al model attribute del form que esta definido en la vista 'login'
 		Usuario usuario = new Usuario();
 		modelo.put("usuario", usuario);
 		// Se va a la vista login (el nombre completo de la lista se resuelve utilizando el view resolver definido en el archivo spring-servlet.xml)
 		// y se envian los datos a la misma  dentro del modelo
+		
+		
+		logger.info("Se accede al login");
+		
+		}catch(Exception e){
+			logger.error("Error en Login", e);
+		}
+		
 		return new ModelAndView("login", modelo);
 	}
 
@@ -52,75 +64,79 @@ public class ControladorLogin {
 	@RequestMapping(path = "/validar-login", method = RequestMethod.POST)
 	public ModelAndView validarLogin(@ModelAttribute("usuario") Usuario usuario, HttpServletRequest request,HttpServletResponse response) {
 		ModelMap model = new ModelMap();
-		
 		boolean valid = true;
 	    String errorString = null;
-	    
-	    if(usuario.getNickname().isEmpty() || usuario.getPassword().isEmpty()){
-	    	valid = false; 
-	    	errorString = "El nick y contraseña son requeridos!";
-	    	Usuario u = new Usuario();
-			model.put("error", errorString);
-			model.put("usuario",u);
-	    }
-	    
-	    if (valid) {
-	    	 
-	         String gRecaptchaResponse = request.getParameter("g-recaptcha-response");
-	 
-	         System.out.println("gRecaptchaResponse=" + gRecaptchaResponse);
-	 
-	         // Verify CAPTCHA.
-	         valid = VerifyUtils.verify(gRecaptchaResponse);
-	         if (!valid) {
-	             errorString = "Captcha invalid!";
-	             Usuario u = new Usuario();
-	 			 model.put("error", errorString);
-	 			 model.put("usuario",u);
-	         }else{
-	         
-	            Usuario usuarioBuscado = servicioLogin.consultarUsuario(usuario);
-				if (usuarioBuscado != null) {
-					Actividad a = new Actividad();
-					
-					a.setDescripcion(LOGEADO);
-					a.setFecha(new Timestamp(System.currentTimeMillis()));
-					a.setUsuario(usuarioBuscado);
-					
-					servicioActividad.registarActividad(a);
-					
-					request.getSession().setAttribute("rol", usuarioBuscado.getRol());
-					request.getSession().setAttribute("idUsuario", usuarioBuscado.getId());
-					request.getSession().setAttribute("email", usuarioBuscado.getEmail());
-					
-					model.put("usuario", usuarioBuscado);
-					if (usuarioBuscado.getRol().equals("admin")) {
-						return new ModelAndView("redirect:/administrar",model);
-					}else{
-						if (usuarioBuscado.getEstado().equals("deshabilitado")) {
-							return new ModelAndView("deshabilitado", model);
-						}
-						if (usuarioBuscado.getEstado().equals("habilitado")) {
-							return new ModelAndView("redirect:/mostrarUsuario",model);
+
+		try{
+		    if(usuario.getNickname().isEmpty() || usuario.getPassword().isEmpty()){
+		    	valid = false; 
+		    	errorString = "El nick y contraseña son requeridos!";
+		    	Usuario u = new Usuario();
+				model.put("error", errorString);
+				model.put("usuario",u);
+				logger.info("Usuario o contraseña incompletos.");
+		    }
+		    
+		    if (valid) {
+		    	 
+		         String gRecaptchaResponse = request.getParameter("g-recaptcha-response");
+		 
+		         System.out.println("gRecaptchaResponse=" + gRecaptchaResponse);
+		 
+		         // Verify CAPTCHA.
+		         valid = VerifyUtils.verify(gRecaptchaResponse);
+		         if (!valid) {
+		             errorString = "Captcha invalid!";
+		             Usuario u = new Usuario();
+		 			 model.put("error", errorString);
+		 			 model.put("usuario",u);
+		 			 logger.info("Captcha inválido.");
+		         }else{
+		         
+		            Usuario usuarioBuscado = servicioLogin.consultarUsuario(usuario);
+					if (usuarioBuscado != null) {
+						Actividad a = new Actividad();
+						
+						a.setDescripcion(LOGEADO);
+						a.setFecha(new Timestamp(System.currentTimeMillis()));
+						a.setUsuario(usuarioBuscado);
+						
+						servicioActividad.registarActividad(a);
+			 			logger.info("Se loguea un usuario correctamente");
+						
+						request.getSession().setAttribute("rol", usuarioBuscado.getRol());
+						request.getSession().setAttribute("idUsuario", usuarioBuscado.getId());
+						request.getSession().setAttribute("email", usuarioBuscado.getEmail());
+						
+						model.put("usuario", usuarioBuscado);
+						if (usuarioBuscado.getRol().equals("admin")) {
+							return new ModelAndView("redirect:/administrar",model);
+						}else{
+							if (usuarioBuscado.getEstado().equals("deshabilitado")) {
+								return new ModelAndView("deshabilitado", model);
+							}
+							if (usuarioBuscado.getEstado().equals("habilitado")) {
+								return new ModelAndView("redirect:/mostrarUsuario",model);
+							}
+							
 						}
 						
+					} else {
+						// si el usuario no existe agrega un mensaje de error en el modelo.
+						
+						valid = false; 
+				    	errorString = "Usuario o clave incorrecta!";
+				    	Usuario u = new Usuario();
+						model.put("error", errorString);
+						model.put("usuario",u);
+			 			logger.info(errorString);
+						
 					}
-					
-				} else {
-					// si el usuario no existe agrega un mensaje de error en el modelo.
-					
-					valid = false; 
-			    	errorString = "Usuario o clave incorrecta!";
-			    	Usuario u = new Usuario();
-					model.put("error", errorString);
-					model.put("usuario",u);
-					
-				}
-	         }
-	     }
-	    
-	    
-			
+		         }
+		     }
+		}catch(Exception e){
+			logger.error("Error en Login", e);
+		}
 			
 		
 	    
