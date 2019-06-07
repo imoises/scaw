@@ -20,6 +20,8 @@ import ar.edu.unlam.scaw.dao.UsuarioDao;
 import ar.edu.unlam.scaw.modelo.Texto;
 import ar.edu.unlam.scaw.modelo.Usuario;
 
+import ar.edu.unlam.scaw.servicios.ServicioPasswordSegura;
+
 @Service("servicioUsuario")
 @Transactional
 public class ServicioUsuarioImpl implements ServicioUsuario{
@@ -31,6 +33,9 @@ public class ServicioUsuarioImpl implements ServicioUsuario{
 	
 	@Inject
 	private TextoDao textoDao;
+	
+	@Inject
+	private ServicioPasswordSegura servicioPasswordSegura;
 	
 	@Override
 	public void agregarTextoAUsuarioSERVICE(Usuario u,Texto t) {
@@ -51,6 +56,8 @@ public class ServicioUsuarioImpl implements ServicioUsuario{
 				Usuario usuarioNuevo = usuario;
 				usuarioNuevo.setRol("usuario");
 				usuarioNuevo.setEstado("deshabilitado");
+				String password = servicioPasswordSegura.passwordEncoder().encode(usuarioNuevo.getPassword());
+				usuarioNuevo.setPassword(password);
 				servicioUsuarioDao.insertUsuario(usuarioNuevo);
 				return true;
 			}

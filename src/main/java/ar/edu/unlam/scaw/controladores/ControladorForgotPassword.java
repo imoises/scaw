@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import ar.edu.unlam.scaw.modelo.Usuario;
+import ar.edu.unlam.scaw.servicios.ServicioPasswordSegura;
 import ar.edu.unlam.scaw.servicios.ServicioUsuario;
 
 @Controller
@@ -25,6 +26,9 @@ public class ControladorForgotPassword {
 	
 	@Inject
 	private ServicioUsuario servicioUsuario;
+	
+	@Inject
+	private ServicioPasswordSegura servicioPasswordSegura;
 	
 	static final String AB = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 	static SecureRandom rnd = new SecureRandom();
@@ -61,9 +65,9 @@ public class ControladorForgotPassword {
 			if(usuario != null) {
 				
 				String randomCharacters = randomString(12);
-				String hashedPassword = DigestUtils.md5Hex(randomCharacters); // Ver esto
+				String hashedPassword = servicioPasswordSegura.passwordEncoder().encode(randomCharacters);
 				
-				usuario.setPassword(randomCharacters);
+				usuario.setPassword(hashedPassword);
 				
 				String destinatario =  usuario.getEmail();
 			    String asunto = "Recupero de contraseña";
