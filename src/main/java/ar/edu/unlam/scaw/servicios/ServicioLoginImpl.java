@@ -20,10 +20,20 @@ public class ServicioLoginImpl implements ServicioLogin {
 
 	@Inject
 	private UsuarioDao servicioLoginDao;
-
+	
 	@Override
 	public Usuario consultarUsuario (Usuario usuario) {
 		return servicioLoginDao.consultarUsuario(usuario);
 	}
-
+	
+	@Override
+	public Usuario consultarUsuarioPorNickname(String nickname) {
+		return servicioLoginDao.consultarUsuarioPorNickname(nickname);
+	}
+	
+	@Override
+	public Usuario buscarUsuarioPorEmail(String email) {
+		return servicioLoginDao.buscarUsuarioPorEmail(email);
+	}
+	
 }
