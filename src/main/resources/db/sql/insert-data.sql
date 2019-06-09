@@ -1,19 +1,19 @@
 --------------------------------------------------  
 --             TABLA USUARIOS                   --
 -------------------------------------------------- 
-INSERT INTO USUARIO(NICKNAME, NOMBRE, APELLIDO, EMAIL, PASSWORD, ROL, ESTADO  ) VALUES  ('user1','Reyna','Rondo','reyna@email.com','202cb962ac59075b964b07152d234b70','admin','habilitado');
+INSERT INTO USUARIO(NICKNAME, NOMBRE, APELLIDO, EMAIL, PASSWORD, ROL, ESTADO  ) VALUES  ('user1','Reyna','Rondo','reyna@email.com','$2a$10$WW470h3a/SnE/9o3AWarr.zSKDseXv87rN11sQwtmCo.5Z8/oQg2.','admin','habilitado');
 -- la pass para user1 es 123 
-INSERT INTO USUARIO(NICKNAME, NOMBRE, APELLIDO, EMAIL, PASSWORD, ROL, ESTADO  ) VALUES  ('user2','Juan','Perez','juan@email.com','202cb962ac59075b964b07152d234b70','usuario','habilitado');
+INSERT INTO USUARIO(NICKNAME, NOMBRE, APELLIDO, EMAIL, PASSWORD, ROL, ESTADO  ) VALUES  ('user2','Juan','Perez','juan@email.com','$2a$10$WW470h3a/SnE/9o3AWarr.zSKDseXv87rN11sQwtmCo.5Z8/oQg2.','usuario','habilitado');
 -- la pass para user2 es 123
-INSERT INTO USUARIO(NICKNAME, NOMBRE, APELLIDO, EMAIL, PASSWORD, ROL, ESTADO  ) VALUES  ('user3','Carlos','Sanchez','carlos@email.com','202cb962ac59075b964b07152d234b70','usuario','deshabilitado');
+INSERT INTO USUARIO(NICKNAME, NOMBRE, APELLIDO, EMAIL, PASSWORD, ROL, ESTADO  ) VALUES  ('user3','Carlos','Sanchez','carlos@email.com','$2a$10$WW470h3a/SnE/9o3AWarr.zSKDseXv87rN11sQwtmCo.5Z8/oQg2.','usuario','deshabilitado');
 -- la pass para user3 es 123
-INSERT INTO USUARIO(NICKNAME, NOMBRE, APELLIDO, EMAIL, PASSWORD, ROL, ESTADO  ) VALUES  ('user4','Raul','Lopez','raul@email.com','202cb962ac59075b964b07152d234b70','usuario','habilitado');
+INSERT INTO USUARIO(NICKNAME, NOMBRE, APELLIDO, EMAIL, PASSWORD, ROL, ESTADO  ) VALUES  ('user4','Raul','Lopez','raul@email.com','$2a$10$WW470h3a/SnE/9o3AWarr.zSKDseXv87rN11sQwtmCo.5Z8/oQg2.','usuario','habilitado');
 -- la pass para user4 es 123
-INSERT INTO USUARIO(NICKNAME, NOMBRE, APELLIDO, EMAIL, PASSWORD, ROL, ESTADO  ) VALUES  ('user5','Juana','Castro','juana@email.com','202cb962ac59075b964b07152d234b70','usuario','deshabilitado');
+INSERT INTO USUARIO(NICKNAME, NOMBRE, APELLIDO, EMAIL, PASSWORD, ROL, ESTADO  ) VALUES  ('user5','Juana','Castro','juana@email.com','$2a$10$WW470h3a/SnE/9o3AWarr.zSKDseXv87rN11sQwtmCo.5Z8/oQg2.','usuario','deshabilitado');
 -- la pass para user5 es 123
-INSERT INTO USUARIO(NICKNAME, NOMBRE, APELLIDO, EMAIL, PASSWORD, ROL, ESTADO  ) VALUES  ('user6','Miguel','Martinez','miguel@email.com','202cb962ac59075b964b07152d234b70','usuario','habilitado');
+INSERT INTO USUARIO(NICKNAME, NOMBRE, APELLIDO, EMAIL, PASSWORD, ROL, ESTADO  ) VALUES  ('user6','Miguel','Martinez','miguel@email.com','$2a$10$WW470h3a/SnE/9o3AWarr.zSKDseXv87rN11sQwtmCo.5Z8/oQg2.','usuario','habilitado');
 -- la pass para user6 es 123
-INSERT INTO USUARIO(NICKNAME, NOMBRE, APELLIDO, EMAIL, PASSWORD, ROL, ESTADO  ) VALUES  ('user7','Tomas','Gomez','tomas@email.com','202cb962ac59075b964b07152d234b70','admin','habilitado');
+INSERT INTO USUARIO(NICKNAME, NOMBRE, APELLIDO, EMAIL, PASSWORD, ROL, ESTADO  ) VALUES  ('user7','Tomas','Gomez','tomas@email.com','$2a$10$WW470h3a/SnE/9o3AWarr.zSKDseXv87rN11sQwtmCo.5Z8/oQg2.','admin','habilitado');
 -- la pass para user7 es 123
 INSERT INTO USUARIO(NICKNAME, NOMBRE, APELLIDO, EMAIL, PASSWORD, ROL, ESTADO  ) VALUES  ('root','','','root','','bloqueado','bloqueado');
 -- la pass para user1 es 123 
@@ -46,7 +46,7 @@ INSERT INTO TEXTO (DESCRIPCION,ID_USUARIO) VALUES ('se guarda texto',1);
 ---------------------------------------------------------------------   
 --             TABLA CONTRASEÑAS VIEJAS                            --
 ---------------------------------------------------------------------
-INSERT INTO PASSWORD_VIEJO(PASSWORD, FECHA, ID_USUARIO) VALUES ('202cb962ac59075b964b07152d234b70',timestamp '2017-10-12 21:22:23' ,2);
+INSERT INTO PASSWORD_VIEJO(PASSWORD, FECHA, ID_USUARIO) VALUES ('$2a$10$WW470h3a/SnE/9o3AWarr.zSKDseXv87rN11sQwtmCo.5Z8/oQg2.',timestamp '2017-10-12 21:22:23' ,2);
 ---------------------------------------------------------------------   
 --             TABLA PREGUNTAS DE SEGURIDAD                        --
 ---------------------------------------------------------------------
