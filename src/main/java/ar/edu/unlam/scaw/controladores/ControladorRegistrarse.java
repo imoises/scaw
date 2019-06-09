@@ -1,5 +1,7 @@
 package ar.edu.unlam.scaw.controladores;
 
+import java.sql.Timestamp;
+
 import javax.inject.Inject;
 import javax.validation.Valid;
 
@@ -12,16 +14,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import ar.edu.unlam.scaw.modelo.Actividad;
 import ar.edu.unlam.scaw.modelo.Usuario;
+import ar.edu.unlam.scaw.servicios.ServicioActividad;
 import ar.edu.unlam.scaw.servicios.ServicioUsuario;
 
 @Controller
 public class ControladorRegistrarse {
 	public final static Logger logger = Logger.getLogger(ControladorRegistrarse.class);
-
+	public static final String REG_COMENTARIO = "El usuario se registro.";
 	@Inject
 	private ServicioUsuario servicioUsuario;
-	
+	@Inject
+	private ServicioActividad servicioActividad;
 //	@RequestMapping("/registrarse")
 //	public ModelAndView Registrar() {
 //		ModelMap modelo = new ModelMap();
@@ -49,11 +54,20 @@ public class ControladorRegistrarse {
 	        	if(servicioUsuario.registrarUsuario(usuarioReg)) {
 					modelo.put("msgRegistrarExito", "Se ha registrado el usuario con éxito. Espere a que un administrador habilite su cuenta.");
 					logger.info("Usuario registrado");
+					
+					Actividad a = new Actividad();
+					
+					a.setDescripcion(REG_COMENTARIO);
+					a.setFecha(new Timestamp(System.currentTimeMillis()));
+					a.setUsuario(usuarioReg);
+					
+					servicioActividad.registarActividad(a);
+					
 					return new ModelAndView("/registrar", modelo);
 				}
 	        	else {
 	        		modelo.put("msgRegistrarError", "No se ha podido completar el registo correctamente. El usuario o email ya se encuentran registrados.");
-//	    			logger.info("Error al registar usuario, usuario o email ya registrado");
+	    			logger.info("Error al registar usuario, usuario o email ya registrado");
 				}
 	            modelAndView = new ModelAndView("registrar");
 	        }
