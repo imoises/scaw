@@ -114,6 +114,7 @@ public class ControladorLogin {
 							request.getSession().setAttribute("rol", usuarioBuscado.getRol());
 							request.getSession().setAttribute("idUsuario", usuarioBuscado.getId());
 							request.getSession().setAttribute("email", usuarioBuscado.getEmail());
+							request.getSession().setAttribute("estado", usuarioBuscado.getEstado());
 							
 							model.put("usuario", usuarioBuscado);
 							if (usuarioBuscado.getRol().equals("admin")) {

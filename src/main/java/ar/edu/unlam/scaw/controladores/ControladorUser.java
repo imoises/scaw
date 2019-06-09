@@ -34,23 +34,28 @@ public class ControladorUser {
 	public ModelAndView mostrarUsuario(@ModelAttribute("usuario") Usuario user,HttpServletRequest request){
 
 		ModelMap model = new ModelMap();
-		try{
-			int idUsuario = (int) request.getSession().getAttribute("idUsuario");
-			Usuario usuario = servicioUsuario.buscarUsuarioXIdSERVICE(idUsuario);
-			
-			List<Actividad> listaActividades = servicioActividad.listarActividadesXUsuario(usuario);
-			Texto t = new Texto();
-			
-			model.put("keyListaActividades", listaActividades);
-			model.put("textoModel", t);
-			
-			String msg = (String) request.getSession().getAttribute("msg");
-			if(msg != null && !msg.isEmpty()){
-				model.put("msg", msg);
-				request.getSession().removeAttribute("msg");
+		if("habilitado".equals(request.getSession().getAttribute("estado"))){
+			try{
+				int idUsuario = (int) request.getSession().getAttribute("idUsuario");
+				Usuario usuario = servicioUsuario.buscarUsuarioXIdSERVICE(idUsuario);
+				
+				List<Actividad> listaActividades = servicioActividad.listarActividadesXUsuario(usuario);
+				Texto t = new Texto();
+				
+				model.put("keyListaActividades", listaActividades);
+				model.put("textoModel", t);
+				
+				String msg = (String) request.getSession().getAttribute("msg");
+				if(msg != null && !msg.isEmpty()){
+					model.put("msg", msg);
+					request.getSession().removeAttribute("msg");
+				}
+			}catch(Exception e){
+				logger.error("Error al mostrar usuario", e);
 			}
-		}catch(Exception e){
-			logger.error("Error al mostrar usuario", e);
+		} else{
+			logger.error("Intento de acceso no autorizado a mostrar usuario.");
+			return new ModelAndView("error401");
 		}
 		
 		return new ModelAndView("homeUsuario",model);
@@ -58,24 +63,29 @@ public class ControladorUser {
 	
 	@RequestMapping(path = "/guardarComentario",method = RequestMethod.POST)
 	public ModelAndView guardarComentario(@ModelAttribute("textoModel") Texto text, HttpServletRequest request) {		
-		
-		try{
-			int idUsuario = (int) request.getSession().getAttribute("idUsuario");
-			Usuario usuario = servicioUsuario.buscarUsuarioXIdSERVICE(idUsuario);
-			
-			Actividad a = new Actividad();
-			
-			a.setDescripcion(ADD_COMENTARIO);
-			a.setFecha(new Timestamp(System.currentTimeMillis()));
-			a.setUsuario(usuario);
-			
-			servicioActividad.registarActividad(a);
-			
-			text.setDescripcion(text.getDescripcion());
-			
-			servicioUsuario.agregarTextoAUsuarioSERVICE(usuario, text);
-		}catch(Exception e){
-			logger.error("Error al guardar comentario", e);
+
+		if("habilitado".equals(request.getSession().getAttribute("estado"))){
+			try{
+				int idUsuario = (int) request.getSession().getAttribute("idUsuario");
+				Usuario usuario = servicioUsuario.buscarUsuarioXIdSERVICE(idUsuario);
+				
+				Actividad a = new Actividad();
+				
+				a.setDescripcion(ADD_COMENTARIO);
+				a.setFecha(new Timestamp(System.currentTimeMillis()));
+				a.setUsuario(usuario);
+				
+				servicioActividad.registarActividad(a);
+				
+				text.setDescripcion(text.getDescripcion());
+				
+				servicioUsuario.agregarTextoAUsuarioSERVICE(usuario, text);
+			}catch(Exception e){
+				logger.error("Error al guardar comentario", e);
+			}
+		} else{
+			logger.error("Intento de acceso no autorizado a guardar comentario.");
+			return new ModelAndView("error401");
 		}
 
 		return new ModelAndView("redirect:/mostrarUsuario");

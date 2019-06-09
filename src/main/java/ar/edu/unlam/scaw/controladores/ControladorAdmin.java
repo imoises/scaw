@@ -3,7 +3,9 @@ package ar.edu.unlam.scaw.controladores;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 
+import org.apache.catalina.connector.Request;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -33,73 +35,93 @@ public class ControladorAdmin {
 	private ServicioActividad servicioActividad;
 
 	@RequestMapping("/administrar")
-	public ModelAndView irAAdministar() {
+	public ModelAndView irAAdministar(HttpServletRequest request) {
 
 		ModelMap modelo = new ModelMap();
-		try {
-			List<Usuario> usuarios = servicioAdmin.consultarUsuarios();
-			modelo.put("usuarios", usuarios);
-			
-		}catch(Exception e){
-			logger.error("Error al consultar usuarios para administrar.", e);
+		if("admin".equals(request.getSession().getAttribute("rol"))){
+			try {
+				List<Usuario> usuarios = servicioAdmin.consultarUsuarios();
+				modelo.put("usuarios", usuarios);
+				
+			}catch(Exception e){
+				logger.error("Error al consultar usuarios para administrar.", e);
+			}
+		} else{
+			logger.error("Intento de acceso a Administrar no autorizado");
+			return new ModelAndView("error401");
 		}
+
+		
 		return new ModelAndView("homeAdmin", modelo);
 	}
 
 	@RequestMapping(path = "/habilitar-usuario/{idUsuario}", method = RequestMethod.GET)
-	public ModelAndView irAHabilitarUsuario(@PathVariable int idUsuario) {
+	public ModelAndView irAHabilitarUsuario(@PathVariable int idUsuario, HttpServletRequest request) {
 
 		ModelMap modelo = new ModelMap();
-		try{
-			servicioAdmin.habilitarUsuario(idUsuario);
-		
-			List<Usuario> usuarios = servicioAdmin.consultarUsuarios();
-			modelo.put("usuarios", usuarios);
-
-		}catch(Exception e){
-			logger.error("Error al habilitar usuario.", e);
+		if("admin".equals(request.getSession().getAttribute("rol"))){
+			try{
+				servicioAdmin.habilitarUsuario(idUsuario);
+			
+				List<Usuario> usuarios = servicioAdmin.consultarUsuarios();
+				modelo.put("usuarios", usuarios);
+	
+			}catch(Exception e){
+				logger.error("Error al habilitar usuario.", e);
+			}
+		} else{
+			logger.error("Intento de acceso no autorizado a habilitar usuario - IDUsuario: " + idUsuario);
+			return new ModelAndView("error401");
 		}
+
 		return new ModelAndView("redirect:/administrar", modelo);
 	}
 
 	@RequestMapping(path = "/deshabilitar-usuario/{idUsuario}", method = RequestMethod.GET)
-	public ModelAndView irADeshabilitarUsuario(@PathVariable int idUsuario) {
+	public ModelAndView irADeshabilitarUsuario(@PathVariable int idUsuario, HttpServletRequest request) {
 
 		ModelMap modelo = new ModelMap();
-		try{
-			servicioAdmin.deshabilitarUsuario(idUsuario);
-			
-			List<Usuario> usuarios = servicioAdmin.consultarUsuarios();
-			modelo.put("usuarios", usuarios);
-	
-		}catch(Exception e){
-			logger.error("Error al deshabilitar usuario.", e);
+		if("admin".equals(request.getSession().getAttribute("rol"))){
+			try{
+				servicioAdmin.deshabilitarUsuario(idUsuario);
+				
+				List<Usuario> usuarios = servicioAdmin.consultarUsuarios();
+				modelo.put("usuarios", usuarios);
+		
+			}catch(Exception e){
+				logger.error("Error al deshabilitar usuario.", e);
+			}
+		} else{
+			logger.error("Intento de acceso no autorizado a deshabilitar usuario - IDUsuario: " + idUsuario);
+			return new ModelAndView("error401");
 		}
 		return new ModelAndView("redirect:/administrar", modelo);
 	}
 	
 	@RequestMapping(path = "/actividad-usuario/{idUsuario}", method = RequestMethod.GET)
-	public ModelAndView irAActividadUsuario(@PathVariable int idUsuario) {
+	public ModelAndView irAActividadUsuario(@PathVariable int idUsuario, HttpServletRequest request) {
 		
 		ModelMap modelo = new ModelMap();
-
-		try{
-			Usuario usuario = servicioUsuario.buscarUsuarioXIdSERVICE(idUsuario);
-			
-			List<Actividad> actividades = servicioActividad.listarActividadesXUsuario(usuario);
-			if(actividades.size() == 0) {
-				modelo.put("error", "El usuario aún no registra actividades.");
-				return new ModelAndView("verActividades", modelo);
+		if("admin".equals(request.getSession().getAttribute("rol"))){
+			try{
+				Usuario usuario = servicioUsuario.buscarUsuarioXIdSERVICE(idUsuario);
+				
+				List<Actividad> actividades = servicioActividad.listarActividadesXUsuario(usuario);
+				if(actividades.size() == 0) {
+					modelo.put("error", "El usuario aún no registra actividades.");
+					return new ModelAndView("verActividades", modelo);
+				}
+				modelo.put("actividades", actividades);
 			}
-			modelo.put("actividades", actividades);
-			return new ModelAndView("verActividades", modelo);
-		
+			catch(Exception e){
+				logger.error("Error: ", e);
+				modelo.put("error", "El usuario no existe.");
+			}
+		} else{
+			logger.error("Intento de acceso no autorizado a Ver actividad - IDUsuario: " + idUsuario);
+			return new ModelAndView("error401");
 		}
-		catch(Exception e){
-			logger.error("Error: ", e);
-			modelo.put("error", "El usuario no existe.");
-			return new ModelAndView("verActividades", modelo);
-		}
+		return new ModelAndView("verActividades", modelo);
 	}
 	
 
