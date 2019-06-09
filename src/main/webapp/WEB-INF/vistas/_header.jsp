@@ -35,7 +35,7 @@
             <a class="nav-link text-light" href="login"><b>LOGIN</b></a>
           </li>
         </ul>
-        <a class="btn navbar-btn btn-secondary mx-2" href="#book"><b>REGISTRARSE</b></a>
+        <a class="btn navbar-btn btn-secondary mx-2" href="registrar"><b>REGISTRARSE</b></a>
       </div>
     </div>
   </nav>

@@ -9,6 +9,16 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.validation.Valid;
+import javax.validation.constraints.AssertTrue;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotEmpty;
+import org.junit.runners.Parameterized.Parameter;
 
 @Entity
 public class Usuario {
@@ -17,15 +27,30 @@ public class Usuario {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	@Column(unique = true)
+	
+	@NotBlank(message = "Nickname es requerido.")
 	private String nickname;
+	@NotBlank(message = "Nombre es requerido.")
 	private String nombre;
+	@NotBlank(message = "Apellido es requerido.")
 	private String apellido;
 	@Column(unique = true)
+	@Email
+	@NotBlank(message = "Email es requerido.")
 	private String email;
+	@NotNull
+	@Size(min = 12, max = 30,message = "Contraseña debe ser de una longitud mayor 12.")
+	@NotBlank(message = "Contraseña es requerido.")
+	@Pattern(regexp="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-])$",message="La contraseña debe tener al menos un dígito, al menos una minúscula ,al menos un caracter especial y al menos una mayúscula.")
 	private String password;
+//	@NotBlank(message = "La confirmacion de la contraseña es requerido.")
+//	@Valid
+//	private String cpassword;
 	private String rol;
 	private String estado;
 	
+	
+
 	@OneToMany(mappedBy="u")
 	private List<Seguridad> listaSeg = new ArrayList<>(); 
 	
@@ -86,6 +111,14 @@ public class Usuario {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+//	public String getCpassword() {
+//		return cpassword;
+//	}
+//
+//	public void setCpassword(String cpassword) {
+//		this.cpassword = cpassword;
+//	}
+
 	public String getRol() {
 		return rol;
 	}

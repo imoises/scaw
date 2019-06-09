@@ -5,6 +5,7 @@ import java.security.NoSuchAlgorithmException;
 
 import sun.misc.BASE64Encoder;
 
+
 public class Util {
 	public static String encryptThisString(String input) { 
 		try { 
@@ -20,10 +21,13 @@ public class Util {
 		} 
 	 } 
 	public static void main(String[] args) {
+		
 		String pass = "1234";
 		System.out.println(pass);
 		String passHash = encryptThisString(pass);
 		System.out.println(passHash);
+		
+		
 		
 	}
 	 
