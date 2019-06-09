@@ -10,8 +10,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-import org.apache.commons.codec.digest.DigestUtils;
-
 @Entity
 public class Usuario {
 
@@ -30,6 +28,7 @@ public class Usuario {
 	
 	@OneToMany(mappedBy="u")
 	private List<Seguridad> listaSeg = new ArrayList<>(); 
+	
 	
 //	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
 //	private List<Actividad> actividad = new ArrayList<Actividad>();
@@ -85,7 +84,7 @@ public class Usuario {
 	}
 	
 	public void setPassword(String password) {
-		this.password = DigestUtils.md5Hex(password);
+		this.password = password;
 	}
 	public String getRol() {
 		return rol;

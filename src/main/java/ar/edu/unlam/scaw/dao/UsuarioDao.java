@@ -27,4 +27,6 @@ public interface UsuarioDao {
 	
 	public boolean existeUsername(Usuario usuario);
 
+	Usuario consultarUsuarioPorNickname(String nickname);
+
 }

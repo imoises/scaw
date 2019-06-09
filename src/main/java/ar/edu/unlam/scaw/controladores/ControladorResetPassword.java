@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import ar.edu.unlam.scaw.modelo.Usuario;
+import ar.edu.unlam.scaw.servicios.ServicioPasswordSegura;
 import ar.edu.unlam.scaw.servicios.ServicioUsuario;
 
 import java.util.List;
@@ -24,6 +25,9 @@ public class ControladorResetPassword {
 	public final static Logger logger = Logger.getLogger(ControladorResetPassword.class);
 	@Inject
 	private ServicioUsuario servicioUsuario;
+	
+	@Inject
+	private ServicioPasswordSegura servicioPasswordSegura;
 	
 	@RequestMapping("/reset_password")
 	public ModelAndView index()
@@ -47,19 +51,23 @@ public class ControladorResetPassword {
 			String email = (String) request.getSession().getAttribute("email");
 			resetPassword.setEmail(email);
 			
-			Usuario usuario = servicioUsuario.consultarUsuarioPorEmailYPassword(resetPassword);
-			String hashedPassword = DigestUtils.md5Hex(newPassword);
+			Usuario usuario = servicioUsuario.buscarUsuarioPorEmail(email);
 			
 			if(usuario != null) {
 				
-				if(!hashedPassword.equals(usuario.getPassword())) 
+				if(servicioPasswordSegura.passwordEncoder().matches(resetPassword.getPassword(), usuario.getPassword()))
 				{
-					usuario.setPassword(newPassword);
-					servicioUsuario.updateUsuario(usuario);
-					request.getSession().setAttribute("msg",  "Contraseña actualizada correctamente.");
-					
+					if(!servicioPasswordSegura.passwordEncoder().matches(newPassword, usuario.getPassword())) {	
+						
+						String hashedPassword = servicioPasswordSegura.passwordEncoder().encode(newPassword);
+						usuario.setPassword(hashedPassword);
+						servicioUsuario.updateUsuario(usuario);
+						request.getSession().setAttribute("msg",  "Contraseña actualizada correctamente.");
+					}else {
+						request.getSession().setAttribute("msg",  "La contraseña nueva debe ser diferente que la anterior.");
+					}
 				}else {
-					request.getSession().setAttribute("msg",  "La contraseña nueva debe ser diferente que la anterior.");
+					request.getSession().setAttribute("msg",  "Los datos ingresados son incorrectos.");
 				}
 					
 			}else {

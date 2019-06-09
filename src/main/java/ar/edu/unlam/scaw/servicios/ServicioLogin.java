@@ -6,4 +6,8 @@ import ar.edu.unlam.scaw.modelo.Usuario;
 public interface ServicioLogin {
 
 	Usuario consultarUsuario(Usuario usuario);
+	
+	public Usuario consultarUsuarioPorNickname(String nickname);
+	
+	public Usuario buscarUsuarioPorEmail(String email);
 }

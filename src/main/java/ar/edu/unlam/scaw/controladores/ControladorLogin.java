@@ -20,6 +20,7 @@ import ar.edu.unlam.scaw.modelo.Usuario;
 import ar.edu.unlam.scaw.recaptcha.VerifyUtils;
 import ar.edu.unlam.scaw.servicios.ServicioActividad;
 import ar.edu.unlam.scaw.servicios.ServicioLogin;
+import ar.edu.unlam.scaw.servicios.ServicioPasswordSegura;
 
 @Controller
 public class ControladorLogin {
@@ -34,6 +35,9 @@ public class ControladorLogin {
 	
 	@Inject
 	private ServicioActividad servicioActividad;
+	
+	@Inject
+	private ServicioPasswordSegura servicioPasswordSegura;
 
 	// Este metodo escucha la URL localhost:8080/NOMBRE_APP/login si la misma es invocada por metodo http GET
 	@RequestMapping("/login")
@@ -93,35 +97,46 @@ public class ControladorLogin {
 		 			 logger.info("Captcha inválido.");
 		         }else{
 		         
-		            Usuario usuarioBuscado = servicioLogin.consultarUsuario(usuario);
+		            Usuario usuarioBuscado = servicioLogin.consultarUsuarioPorNickname(usuario.getNickname());
 					if (usuarioBuscado != null) {
-						Actividad a = new Actividad();
 						
-						a.setDescripcion(LOGEADO);
-						a.setFecha(new Timestamp(System.currentTimeMillis()));
-						a.setUsuario(usuarioBuscado);
-						
-						servicioActividad.registarActividad(a);
-			 			logger.info("Se loguea un usuario correctamente");
-						
-						request.getSession().setAttribute("rol", usuarioBuscado.getRol());
-						request.getSession().setAttribute("idUsuario", usuarioBuscado.getId());
-						request.getSession().setAttribute("email", usuarioBuscado.getEmail());
-						
-						model.put("usuario", usuarioBuscado);
-						if (usuarioBuscado.getRol().equals("admin")) {
-							return new ModelAndView("redirect:/administrar",model);
-						}else{
-							if (usuarioBuscado.getEstado().equals("deshabilitado")) {
-								return new ModelAndView("deshabilitado", model);
-							}
-							if (usuarioBuscado.getEstado().equals("habilitado")) {
-								return new ModelAndView("redirect:/mostrarUsuario",model);
-							}
+						if(servicioPasswordSegura.passwordEncoder().matches(usuario.getPassword(), usuarioBuscado.getPassword())) {
 							
+							Actividad a = new Actividad();
+							
+							a.setDescripcion(LOGEADO);
+							a.setFecha(new Timestamp(System.currentTimeMillis()));
+							a.setUsuario(usuarioBuscado);
+							
+							servicioActividad.registarActividad(a);
+				 			logger.info("Se loguea un usuario correctamente");
+							
+							request.getSession().setAttribute("rol", usuarioBuscado.getRol());
+							request.getSession().setAttribute("idUsuario", usuarioBuscado.getId());
+							request.getSession().setAttribute("email", usuarioBuscado.getEmail());
+							
+							model.put("usuario", usuarioBuscado);
+							if (usuarioBuscado.getRol().equals("admin")) {
+								return new ModelAndView("redirect:/administrar",model);
+							}else{
+								if (usuarioBuscado.getEstado().equals("deshabilitado")) {
+									return new ModelAndView("deshabilitado", model);
+								}
+								if (usuarioBuscado.getEstado().equals("habilitado")) {
+									return new ModelAndView("redirect:/mostrarUsuario",model);
+								}
+								
+							}
+						}else {
+							valid = false; 
+					    	errorString = "Usuario o clave incorrecta!";
+					    	Usuario u = new Usuario();
+							model.put("error", errorString);
+							model.put("usuario",u);
+				 			logger.info(errorString);
 						}
 						
-					} else {
+					}else {
 						// si el usuario no existe agrega un mensaje de error en el modelo.
 						
 						valid = false; 
