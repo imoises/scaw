@@ -5,7 +5,7 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.catalina.connector.Request;
+//import org.apache.catalina.connector.Request;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -108,7 +108,7 @@ public class ControladorAdmin {
 				
 				List<Actividad> actividades = servicioActividad.listarActividadesXUsuario(usuario);
 				if(actividades.size() == 0) {
-					modelo.put("error", "El usuario aún no registra actividades.");
+					modelo.put("error", "El usuario aï¿½n no registra actividades.");
 					return new ModelAndView("verActividades", modelo);
 				}
 				modelo.put("actividades", actividades);
