@@ -1,5 +1,5 @@
 package ar.edu.unlam.scaw.modelo;
-
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,16 +9,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.validation.Valid;
-import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
-import org.hibernate.validator.constraints.NotEmpty;
-import org.junit.runners.Parameterized.Parameter;
 
 @Entity
 public class Usuario {
@@ -48,6 +44,7 @@ public class Usuario {
 //	private String cpassword;
 	private String rol;
 	private String estado;
+	private Timestamp fechaUltimoCambioPass;
 	
 	
 
@@ -132,6 +129,14 @@ public class Usuario {
 	public void setEstado(String estado) {
 		this.estado = estado;
 	}
+
+	public Timestamp getFechaUltimoCambioPass() {
+		return fechaUltimoCambioPass;
+	}
+
+	public void setFechaUltimoCambioPass(Timestamp fechaUltimoCambioPass) {
+		this.fechaUltimoCambioPass = fechaUltimoCambioPass;
+	}
 	
 //	public List<Actividad> getActividad() {
 //		return actividad;
@@ -148,4 +153,5 @@ public class Usuario {
 //	public void setTexto(List<Texto> texto) {
 //		this.texto = texto;
 //	}	
+	
 }

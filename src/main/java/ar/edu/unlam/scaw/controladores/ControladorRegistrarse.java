@@ -51,6 +51,7 @@ public class ControladorRegistrarse {
 	        if(result.hasErrors()) {
 	            modelAndView = new ModelAndView("registrar");
 	        } else {
+	        	usuarioReg.setFechaUltimoCambioPass(new Timestamp(System.currentTimeMillis()));
 	        	if(servicioUsuario.registrarUsuario(usuarioReg)) {
 					modelo.put("msgRegistrarExito", "Se ha registrado el usuario con éxito. Espere a que un administrador habilite su cuenta.");
 					logger.info("Usuario registrado");

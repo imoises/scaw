@@ -14,6 +14,7 @@ import ar.edu.unlam.scaw.modelo.Usuario;
 import ar.edu.unlam.scaw.servicios.ServicioPasswordSegura;
 import ar.edu.unlam.scaw.servicios.ServicioUsuario;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -67,6 +68,7 @@ public class ControladorResetPassword {
 							
 							String hashedPassword = servicioPasswordSegura.passwordEncoder().encode(newPassword);
 							usuario.setPassword(hashedPassword);
+							usuario.setFechaUltimoCambioPass(new Timestamp(System.currentTimeMillis()));
 							servicioUsuario.updateUsuario(usuario);
 							request.getSession().setAttribute("msg",  "Contraseña actualizada correctamente.");
 						}else {
