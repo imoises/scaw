@@ -19,6 +19,7 @@ import ar.edu.unlam.scaw.modelo.Actividad;
 import ar.edu.unlam.scaw.modelo.Usuario;
 import ar.edu.unlam.scaw.recaptcha.VerifyUtils;
 import ar.edu.unlam.scaw.servicios.ServicioActividad;
+import ar.edu.unlam.scaw.servicios.ServicioAdmin;
 import ar.edu.unlam.scaw.servicios.ServicioLogin;
 import ar.edu.unlam.scaw.servicios.ServicioPasswordSegura;
 
@@ -26,6 +27,7 @@ import ar.edu.unlam.scaw.servicios.ServicioPasswordSegura;
 public class ControladorLogin {
 	public final static String LOGEADO = "El usuario se logeo en la aplicación";
 	public final static Logger logger = Logger.getLogger(ControladorLogin.class);
+	public static int CANT_ERROR_LOGEO = 0 ;
 	
 	// La anotacion @Inject indica a Spring que en este atributo se debe setear (inyeccion de dependencias)
 	// un objeto de una clase que implemente la interface ServicioLogin, dicha clase debe estar anotada como
@@ -38,6 +40,8 @@ public class ControladorLogin {
 	
 	@Inject
 	private ServicioPasswordSegura servicioPasswordSegura;
+	@Inject
+	private ServicioAdmin servicioAdmin;
 
 	// Este metodo escucha la URL localhost:8080/NOMBRE_APP/login si la misma es invocada por metodo http GET
 	@RequestMapping("/login")
@@ -100,7 +104,7 @@ public class ControladorLogin {
 		            Usuario usuarioBuscado = servicioLogin.consultarUsuarioPorNickname(usuario.getNickname());
 					if (usuarioBuscado != null) {
 						
-						if(servicioPasswordSegura.passwordEncoder().matches(usuario.getPassword(), usuarioBuscado.getPassword())) {
+						if(CANT_ERROR_LOGEO < 3 && (servicioPasswordSegura.passwordEncoder().matches(usuario.getPassword(), usuarioBuscado.getPassword())) ) {
 							
 							Actividad a = new Actividad();
 							
@@ -135,6 +139,17 @@ public class ControladorLogin {
 							model.put("error", errorString);
 							model.put("usuario",u);
 				 			logger.info(errorString);
+				 			CANT_ERROR_LOGEO ++;
+				 			if(CANT_ERROR_LOGEO == 3){
+				 				servicioAdmin.deshabilitarUsuario(usuarioBuscado.getId());
+				 				errorString = "El usuario se ha deshabilitados por ingresar 3 veces incorrectamente la contraseña.Comuniquese con su administrador!";
+				 				model.put("usuario", usuarioBuscado);
+								if (usuarioBuscado.getEstado().equals("deshabilitado")) {
+									return new ModelAndView("deshabilitado", model);
+								}
+								CANT_ERROR_LOGEO=0;
+				 			}
+				 			
 						}
 						
 					}else {

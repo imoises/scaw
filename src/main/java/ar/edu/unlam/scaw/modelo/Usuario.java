@@ -39,9 +39,9 @@ public class Usuario {
 	@NotBlank(message = "Email es requerido.")
 	private String email;
 	@NotNull
-	@Size(min = 12, max = 30,message = "Contraseña debe ser de una longitud mayor 12.")
+	//@Size(min = 10, max = 30,message = "Contraseña debe ser de una longitud mayor 12.")
 	@NotBlank(message = "Contraseña es requerido.")
-	@Pattern(regexp="(?!^[0-9]*$)(?!^[a-zA-Z]*$)^([a-zA-Z0-9]{12,30})$",message="La contraseña debe tener al menos un dígito, al menos una minúscula  y al menos una mayúscula.")
+	//@Pattern(regexp="(?!^[0-9]*$)(?!^[a-zA-Z]*$)^([a-zA-Z0-9]{10,30})$",message="La contraseña debe tener al menos un dígito, al menos una minúscula  y al menos una mayúscula.")
 	private String password;
 //	@NotBlank(message = "La confirmacion de la contraseña es requerido.")
 //	@Valid
