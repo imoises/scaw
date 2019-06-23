@@ -1,6 +1,7 @@
 package ar.edu.unlam.scaw.modelo;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -9,6 +10,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
@@ -45,6 +48,9 @@ public class Usuario {
 	private String rol;
 	private String estado;
 	private Timestamp fechaUltimoCambioPass;
+	
+	@Temporal(TemporalType.DATE)
+	private Date fecha_inactivo;
 	
 	
 
@@ -136,6 +142,13 @@ public class Usuario {
 
 	public void setFechaUltimoCambioPass(Timestamp fechaUltimoCambioPass) {
 		this.fechaUltimoCambioPass = fechaUltimoCambioPass;
+	}
+	
+	public void setFechaInactivo(Date fecha_inactivo) {
+		this.fecha_inactivo = fecha_inactivo;
+	}
+	public Date getFechaInactivo() {
+		return this.fecha_inactivo;
 	}
 	
 //	public List<Actividad> getActividad() {

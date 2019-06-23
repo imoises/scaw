@@ -29,4 +29,8 @@ public interface UsuarioDao {
 
 	Usuario consultarUsuarioPorNickname(String nickname);
 
+	void deleteUsuario(Usuario usuario);
+
+	List<Usuario> consultarUsuariosInactivos();
+
 }

@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
@@ -35,6 +36,18 @@ public class ActividadDaoImpl implements ActividadDao {
 							.add(Restrictions.eq("u.id", usuario.getId())).list();
 						
 		return listado;
+	}
+	
+	@Override
+	public void deleteActividad(Usuario usuario) {
+		
+		final Session session = sessionFactory.getCurrentSession();
+        
+		Query q = session.createQuery("from Actividad a where a.usuario = :idUsuario ");
+		q.setParameter("idUsuario", usuario);
+		Actividad actividad = (Actividad)q.list().get(0);
+		
+		sessionFactory.getCurrentSession().delete(actividad);
 	}
 
 	

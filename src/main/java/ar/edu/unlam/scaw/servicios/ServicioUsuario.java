@@ -11,4 +11,5 @@ public interface ServicioUsuario {
 	public Usuario buscarUsuarioPorEmail(String email);
 	void updateUsuario(Usuario usuario);
 	String envioEmail(String destinatario, String asunto, String cuerpo);
+	void deleteUsuario(Usuario usuario);
 }

@@ -1,5 +1,9 @@
 package ar.edu.unlam.scaw.servicios;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -19,7 +23,6 @@ import ar.edu.unlam.scaw.dao.TextoDao;
 import ar.edu.unlam.scaw.dao.UsuarioDao;
 import ar.edu.unlam.scaw.modelo.Texto;
 import ar.edu.unlam.scaw.modelo.Usuario;
-
 import ar.edu.unlam.scaw.servicios.ServicioPasswordSegura;
 
 @Service("servicioUsuario")
@@ -56,6 +59,17 @@ public class ServicioUsuarioImpl implements ServicioUsuario{
 				Usuario usuarioNuevo = usuario;
 				usuarioNuevo.setRol("usuario");
 				usuarioNuevo.setEstado("deshabilitado");
+				
+				DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+				String fecha = dateFormat.format(new Date());
+				
+				try {
+					Date date1 = dateFormat.parse(fecha);
+					usuarioNuevo.setFechaInactivo(date1);
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
+				
 				String password = servicioPasswordSegura.passwordEncoder().encode(usuarioNuevo.getPassword());
 				usuarioNuevo.setPassword(password);
 				servicioUsuarioDao.insertUsuario(usuarioNuevo);
@@ -68,6 +82,11 @@ public class ServicioUsuarioImpl implements ServicioUsuario{
 	@Override
 	public void updateUsuario(Usuario usuario) {
 		servicioUsuarioDao.updateUsuario(usuario);
+	}
+	
+	@Override
+	public void deleteUsuario(Usuario usuario) {
+		servicioUsuarioDao.deleteUsuario(usuario);
 	}
 	
 	

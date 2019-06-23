@@ -1,6 +1,7 @@
 package ar.edu.unlam.scaw.controladores;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
@@ -22,6 +23,7 @@ import ar.edu.unlam.scaw.servicios.ServicioActividad;
 import ar.edu.unlam.scaw.servicios.ServicioAdmin;
 import ar.edu.unlam.scaw.servicios.ServicioLogin;
 import ar.edu.unlam.scaw.servicios.ServicioPasswordSegura;
+import ar.edu.unlam.scaw.servicios.ServicioUsuario;
 
 @Controller
 public class ControladorLogin {
@@ -36,6 +38,9 @@ public class ControladorLogin {
 	private ServicioLogin servicioLogin;
 	
 	@Inject
+	private ServicioUsuario servicioUsuario;
+	
+	@Inject
 	private ServicioActividad servicioActividad;
 	
 	@Inject
@@ -46,7 +51,9 @@ public class ControladorLogin {
 	// Este metodo escucha la URL localhost:8080/NOMBRE_APP/login si la misma es invocada por metodo http GET
 	@RequestMapping("/login")
 	public ModelAndView irALogin() {
-
+		
+		servicioAdmin.deleteUsuariosInactivosPorPeriodo();
+		
 		ModelMap modelo = new ModelMap();
 		try{
 		// Se agrega al modelo un objeto del tipo Usuario con key 'usuario' para que el mismo sea asociado

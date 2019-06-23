@@ -9,6 +9,10 @@ import org.springframework.stereotype.Repository;
 
 import ar.edu.unlam.scaw.modelo.Usuario;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -53,6 +57,17 @@ public class UsuarioDaoImpl implements UsuarioDao {
 				.add(Restrictions.eq("nickname", nickname))
 				.uniqueResult();
 	}
+	
+	@Override
+	public List<Usuario> consultarUsuariosInactivos() {
+		
+		final Session session = sessionFactory.getCurrentSession();
+		List<Usuario> usuarios = (List<Usuario>) session.createCriteria(Usuario.class)
+				.add(Restrictions.isNotNull("fecha_inactivo"))
+				.list();
+		return usuarios;
+	}
+	
 	
 	@SuppressWarnings("unchecked")
 	@Override
@@ -99,6 +114,7 @@ public class UsuarioDaoImpl implements UsuarioDao {
 		Usuario user = (Usuario)q.list().get(0);
 
 		user.setEstado("habilitado");
+		user.setFechaInactivo(null);
 		session.update(user);
 	}
 	
@@ -112,12 +128,28 @@ public class UsuarioDaoImpl implements UsuarioDao {
 		Usuario user = (Usuario)q.list().get(0);
 
 		user.setEstado("deshabilitado");
+		
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		String fecha = dateFormat.format(new Date());
+		
+		try {
+			Date date1 = dateFormat.parse(fecha);
+			user.setFechaInactivo(date1);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		
 		session.update(user);
 	}
 	
 	@Override
 	public void updateUsuario(Usuario usuario) {
 		sessionFactory.getCurrentSession().update(usuario);
+	}
+	
+	@Override
+	public void deleteUsuario(Usuario usuario) {
+		sessionFactory.getCurrentSession().delete(usuario);
 	}
 
 	@Override

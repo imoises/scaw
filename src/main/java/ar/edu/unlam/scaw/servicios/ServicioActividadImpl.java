@@ -29,6 +29,11 @@ public class ServicioActividadImpl implements ServicioActividad {
 	public void registarActividad (Actividad a) {
 		actividadDao.crearActividad(a);
 	}
+	
+	@Override
+	public void deleteActividad (Usuario usuario) {
+		actividadDao.deleteActividad(usuario);
+	}
 
 	@Override
 	public List<Actividad> listarActividadesXUsuario(Usuario u) {

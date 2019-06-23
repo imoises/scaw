@@ -1,12 +1,18 @@
 package ar.edu.unlam.scaw.servicios;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import ar.edu.unlam.scaw.dao.ActividadDao;
 import ar.edu.unlam.scaw.dao.UsuarioDao;
 import ar.edu.unlam.scaw.modelo.Usuario;
 
@@ -22,6 +28,9 @@ public class ServicioAdminImpl implements ServicioAdmin {
 
 	@Inject
 	private UsuarioDao servicioAdminDao;
+	
+	@Inject
+	private ActividadDao servicioActividadDao;
 
 	@Override
 	public Usuario consultarUsuario (Usuario usuario) {
@@ -32,6 +41,37 @@ public class ServicioAdminImpl implements ServicioAdmin {
 	public List<Usuario> consultarUsuarios() {
 		return servicioAdminDao.consultarUsuarios();
 	}
+	
+	@Override
+	public void deleteUsuariosInactivosPorPeriodo() {
+		
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		
+		List<Usuario> usuarios = servicioAdminDao.consultarUsuariosInactivos();	
+		
+		String today = dateFormat.format(new Date());
+		
+		try {
+			Date date1 = dateFormat.parse(today);
+			
+			for(Usuario usuario : usuarios) {
+				
+				Date date = usuario.getFechaInactivo();
+				
+				long diffInMillies = Math.abs(date1.getTime() - date.getTime());
+		    	long diffDays = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
+		    	
+		    	if(diffDays > 90) {
+		    		servicioActividadDao.deleteActividad(usuario);
+		    		servicioAdminDao.deleteUsuario(usuario);
+		    	}
+			}
+			
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+	}
+	
 
 	@Override
 	public void habilitarUsuario (int idUsuario) {
