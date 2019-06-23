@@ -1,6 +1,8 @@
 package ar.edu.unlam.scaw.controladores;
 
 import java.sql.Timestamp;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -44,6 +46,17 @@ public class ControladorUser {
 				
 				model.put("keyListaActividades", listaActividades);
 				model.put("textoModel", t);
+				
+				//para vencer pass en 30 dias
+				Calendar calendar = Calendar.getInstance();
+			    calendar.setTime(new Date());
+			    calendar.add(Calendar.DAY_OF_MONTH, -30);
+			    Timestamp fechaHace30dias = new Timestamp(calendar.getTimeInMillis());
+				
+				if(usuario.getFechaUltimoCambioPass().before(fechaHace30dias)){
+					model.put("msg", "Debe modificar su contraseña ya que han pasado más de 30 días desde el último cambio");
+				}
+
 				
 				String msg = (String) request.getSession().getAttribute("msg");
 				if(msg != null && !msg.isEmpty()){

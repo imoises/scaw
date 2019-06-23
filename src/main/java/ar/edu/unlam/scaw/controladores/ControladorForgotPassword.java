@@ -1,6 +1,7 @@
 package ar.edu.unlam.scaw.controladores;
 
 import java.security.SecureRandom;
+import java.sql.Timestamp;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -74,6 +75,8 @@ public class ControladorForgotPassword {
 			    String cuerpo = "Nueva contraseña: " + randomCharacters;
 				String value = servicioUsuario.envioEmail(destinatario, asunto, cuerpo);
 				
+				usuario.setFechaUltimoCambioPass(new Timestamp(System.currentTimeMillis()));
+	        	
 				servicioUsuario.updateUsuario(usuario);
 				modelo.put("msg", value);
 	
